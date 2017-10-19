@@ -1,2 +1,2 @@
 <?php
-echo 'sdgfj';
+echo '你好';
