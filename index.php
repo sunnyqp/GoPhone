@@ -1,2 +1,2 @@
 <?php
-echo '嘻嘻嘻！';
+echo 'dsgh';
