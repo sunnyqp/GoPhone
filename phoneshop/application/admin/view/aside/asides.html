@@ -1,0 +1,233 @@
+{if(!empty($roles)&&in_array("超级管理员",$roles))}
+  <aside class="lt_aside_nav content mCustomScrollbar">
+ <h2><a href="../admin/index">起始页</a></h2>
+ <ul>
+  <li class="st">
+    <span style="position: absolute;width: 5px;height: 30px;background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;">
+      <span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center" >商品管理</span>
+   </div>
+   <dl>
+    <!--当前链接则添加class:active-->
+    <dd><a href="{:url('brand/category')}">商品分类</a></dd>
+    <dd><a href="{:url('brand/productlist')}">商品列表</a></dd>
+    <dd><a href="{:url('brand/recyle')}">商品回收站</a></dd>
+   </dl>
+  </li>
+  <li class="st">
+    <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">图片管理</span></div>
+   <dl>
+    <!--当前链接则添加class:active-->
+    <dd><a  href="{:url('picture/lbpicturelist')}" class="active">轮播图管理</a></dd>
+    <dd><a href="{:url('picture/lbrecyle')}">轮播图回收站</a></dd>
+    <dd><a href="{:url('photo/photolist')}">商品图片管理</a></dd>
+    <dd><a href="{:url('photo/photorecyle')}">商品图片回收站</a></dd>
+   </dl>
+  </li>
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">订单管理</span></div>
+   <dl>
+    <dd><a href="{:url('indent/indentlist')}">订单列表</a></dd>
+   </dl>
+  </li>
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">资讯管理</span></div>
+   <dl>
+    <dd><a href="{:url('Mesg/mesglist')}">资讯列表</a></dd>
+    <dd><a href="{:url('Mesg/mesgrecyle')}">资讯回收站</a></dd>
+   </dl>
+  </li>
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">用户管理</span></div>
+   <dl>
+    <dd><a href="{:url('Rbac/userlist')}">用户列表</a></dd>
+    <dd><a href="{:url('Rbac/rolelist')}">角色列表</a></dd>
+    <dd><a href="{:url('Rbac/nodelist')}">权限列表</a></dd>
+   </dl>
+  </li>
+   <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">评论管理</span></div>
+   <dl>
+    <dd><a href="{:url('Pinglun/plinfo')}">评论列表</a></dd>
+   </dl>
+  </li>
+  <li class="st">
+    <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">基础设置</span></div>
+   <dl>
+    <dd><a href="{:url('Admin/siteinfo')}">站点基础设置</a></dd>
+   </dl>
+  </li>
+ </ul>
+  </aside>
+
+{else}
+
+  <aside class="lt_aside_nav content mCustomScrollbar">
+ <h2><a href="../admin/index">起始页</a></h2>
+ <ul>
+ {if !empty($roles)}
+ {if in_array('商品管理',$roles)}
+  <li class="st">
+    <span style="position: absolute;width: 5px;height: 30px;background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;">
+      <span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center" >商品管理</span>
+   </div>
+   <dl>
+    <!--当前链接则添加class:active-->
+    <dd><a href="{:url('brand/category')}"   >商品分类</a></dd>
+    <dd><a href="{:url('brand/productlist')}">商品列表</a></dd>
+    <dd><a href="{:url('brand/recyle')}">商品回收站</a></dd>
+   </dl>
+  </li>
+  {/if}
+  {if in_array('图片管理',$roles)}
+    <li class="st">
+    <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">图片管理</span></div>
+   <dl>
+    <!--当前链接则添加class:active-->
+    <dd><a  href="{:url('picture/lbpicturelist')}" class="active">轮播图管理</a></dd>
+    <dd><a href="{:url('picture/lbrecyle')}">轮播图回收站</a></dd>
+    <dd><a href="{:url('photo/photolist')}">商品图片管理</a></dd>
+    <dd><a href="{:url('photo/photorecyle')}">商品图片回收站</a></dd>
+   </dl>
+    </li>
+  {/if}
+  {if in_array('订单管理',$roles)}
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">订单管理</span></div>
+   <dl>
+    <dd><a href="{:url('indent/indentlist')}">订单列表</a></dd>
+   </dl>
+  </li>
+  {/if}
+   {if in_array('资讯管理',$roles)}
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">资讯管理</span></div>
+   <dl>
+    <dd><a href="{:url('Mesg/mesglist')}">资讯列表</a></dd>
+    <dd><a href="{:url('Mesg/mesgrecyle')}">资讯回收站</a></dd>
+   </dl>
+  </li>
+   {/if}
+   {if in_array('用户权限管理',$roles)}
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">用户管理</span></div>
+   <dl>
+    <dd><a href="{:url('Rbac/userlist')}">用户列表</a></dd>
+    <dd><a href="{:url('Rbac/rolelist')}">角色列表</a></dd>
+    <dd><a href="{:url('Rbac/nodelist')}">权限列表</a></dd>
+   </dl>
+  </li>
+  {/if}
+  {if in_array('评论管理',$roles)}
+  <li class="st">
+  <span style="position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #67c1a5;
+    content: "";
+    top: 10px;
+    left:;"></span>
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">评论管理</span></div>
+   <dl>
+    <dd><a href="{:url('Pinglun/plinfo')}">评论列表</a></dd>
+   </dl>
+  </li>
+  {/if}
+  {if in_array('站点信息管理',$roles)}
+  <li class="st">
+   <div style ="width:208px;height:30px;border-bottom:1px dashed  gray;"><span style="font-size:20px;font-family:隶书;margin-left:20px;margin-top:10px;margin-bottom:10px;text-align:center">基础设置</span></div>
+   <dl>
+    <dd><a href="{:url('Admin/siteinfo')}">站点基础设置</a></dd>
+   </dl>
+  </li>
+  {/if}
+  {/if}
+  {/if}
+ </ul>
+  </aside>
+<script type="text/javascript">
+    $(function () {
+        $('.st').click(function () {
+            $(this).children('dl').slideToggle().end().siblings().children('dl').slideUp();
+        })
+    })
+</script>
+<script type="text/javascript">
+</script>

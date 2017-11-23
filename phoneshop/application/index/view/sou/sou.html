@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)https://shop.dixintong.com/list.aspx?key=%E9%94%A4%E5%AD%90+m1 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+	    商品列表 - GoPhone官网
+    </title>
+    <link href="__CSS__/basic.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/list2.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/kkpager_blue.css" rel="stylesheet">
+    <script charset="utf-8" src="__JS__/v.js"></script>
+    <script src="__JS__/hm.js"></script>
+    <script src="__JS__/hm(1).js"></script>
+    <script src="__JS__/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="__JS__/header_index.js"></script>
+    <script src="__JS__/kkpager.min.js"></script>
+    <script src="__JS__/tongji_baidu.js"></script>
+    <script type="text/javascript"> 
+        $(function () {  
+            //所有类目
+            $(".classify dt").on("click", function () {
+                if ($(this).parent("dl").hasClass("none")) {
+                    $(this).parent("dl").removeClass("none");
+                } else {
+                    $(this).parent("dl").addClass("none");
+                }
+            })
+
+        }); 
+        function link(obj,content)
+        {
+            $(obj).attr('href', 'list.aspx?key=' + escape(content));
+        }
+    </script>
+    <style type="text/css">
+        #xiaoliang a:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODY0NzQxNDU0ZGRjKe2JRRDp1NkSgtE4gm5cLzpxmEGGAlPDh7EqqycpYQ==">
+</div>
+        <!--header-->
+<link rel="stylesheet" href="__CSS__/basic(1).css">
+<link rel="stylesheet" href="__CSS__/stylesou.css">
+<div class="header">
+            <div class="topbar">
+                <div class="clear w1200">
+                    <p class="welcome">欢迎来到GoPhone</p>
+                    <div class="clear menu">
+                        <a href="" class="item">我的订单</a>
+                        <span class="divi">|</span>
+                        <a href="" class="item J_online-service">联系我们</a>
+                        <span class="divi">|</span>
+                        <a target="_blank" href="" class="item">校园招聘</a>
+                    </div>
+                    {if !empty($Think.session.username)}
+                    <div class="clear login-status">
+                        <a href="" class="link">欢迎, {$Think.session.username}</a>
+                        <span class="divi"> | </span>
+                        <a href="../index/tuichu" class="link" id="">退出</a>
+                    </div>
+                    {else}
+                    <div class="clear login-status">
+                        <a href="../index/user/login" class="link">登陆</a>
+                        <span class="divi"> | </span>
+                        <a href="" class="link" id="exitLogin">注册</a>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="clear w1200 headbar">
+                <a href="../../" class="logo">
+                    <img alt="" src="__IMG__/logo1.jpg">
+                </a>
+                <a href="../../" class="slogan">
+                    <img alt="" src="__IMG__/slogan1.png">
+                </a>
+                <div class="search-container">
+                    <div class="clear search-bar" id="searchBar">
+                        <form action="../sou/sou" method="post">
+                            <input type="text" class="input" name="so" id="searchInput" placeholder="请输入搜索内容">
+                            <input type="submit" class="btn" id="searchBtn" value="搜索">
+                        </form>
+                    </div>
+                </div>
+                <div class="endorse">
+                    <a href="javascript:;" class="J_online-service">
+                        <img src="__IMG__/kefupic.gif" style="width: 109px;margin-top: -5px;">
+                    </a>
+                </div>
+            </div>
+            <div class="clear w1200 nav-container">
+                <div class="nav" id="main-nav">
+                    <h2 class="title">全部商品分类</h2>
+                    <ul class="list" id="main-list">
+                        {if !empty($big)}
+                        {foreach $big as $v}
+                        <li class="nav-first J_nav-first">
+                            <h2 class="title phone">{$v.name}</h2>
+                            <div class="clear list">
+                                {if (!empty($small))}
+                                {foreach $small as $v1}
+                                {if $v1.pid == $v.id}
+                                <a target="_blank" href="" class="item">{$v1.name}</a>
+                                {/if}
+                                {/foreach}
+                                 {/if}
+                            </div>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                </div>
+                    <a href="../" class="item index on">首页</a>
+                    <a target="_blank" href="../phoneshop/phoneshop" class="item">手机商城</a>
+                    <a target="_blank" href="../heikeji/heikeji" class="item">黑科技</a>
+                    <a target="_blank" href="../message/message" class="item">资讯评测</a>
+            </div>
+        </div>
+        <div class="clear aside" id="aside" STYLE="height:50PX;position:fixed;margin-top:700px;">
+            <div class="toolbar" id="toolbar">
+                <a href="javascript:void(0);" class="return-top" id="returnTop">TOP ↑</a>
+            </div>
+        </div>
+<script type="text/javascript" src="__JS__/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="__JS__/jquery.cookies.2.2.0.min.js"></script>
+<script type="text/javascript" src="__JS__/header.js"></script>
+
+        <div class="content-box com-width">
+            <!-- 对比栏 end -->
+            <div class="content clear">
+                <!-- 右部分 -->
+                <div class="cont-left-box">
+                    <div class="cont-left">
+                        <div class="options" style="border: 1px solid #eee;">
+                            <div class="phone-choice">
+                                <i class="fl">&nbsp;&nbsp;&nbsp</i><i class="fl">商品筛选（共</i><span class="fl">{$count}</span><i class="fl">个商品）</i>
+                            </div>
+                        </div>
+                        <div class="detail">
+
+                            <div class="GoodListBox">
+                                <ul class="GoodsList clear">
+                                    {if !empty($sou)}
+                                    {foreach $sou as $v}
+                                    <li>
+                                        <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}">
+                                            <div class="imgbox">
+                                                <img src="__IMG__/{$v.picture}" alt="">
+                                            </div>
+                                            <p class="goodsinfo">
+                                                {$v.name} +
+                                                {if !empty($v.ram)}
+                                                    {$v.ram}GB 存储
+                                                {/if}
+                                            </p>
+                                            <p class="goodsdesc">
+                                                直降 {$v.dazhe}
+                                            </p>
+                                            <p class="goodsprice clear">
+                                                ￥<span>{$v.money}</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    {/foreach}
+                                    {else}
+                                    <center><font style="font-size:40px;">抱歉客官!我没有搜索到与 <font color="red"><b style="font-size:50px;">{$so}</b></font> 匹配的商品!</font></center><br/><br/>
+                                        <center><img src="__IMG__/ku.jpg" /></center>
+                                    {/if}
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--footer-->
+        
+<link href="__CSS__/basic(2).css" rel="stylesheet">
+<link href="__CSS__/footer.css" rel="stylesheet">
+<style type="text/css"> 
+.footer-top img{ cursor:pointer; }
+</style>
+            <footer>
+                <div class="footer">
+                    <div class="footer-warp">
+                        <div class="footer-top clear">
+                            <a href="" style="cursor:default" target="_blank" class="fl">
+                                <img src="__IMG__/fuwu01.jpg" width="256" height="97" class="fl">
+                            </a>
+                            <a href="" style="cursor:default" target="_blank" class="fl">
+                                <img src="__IMG__/fuwu02.jpg" width="214" height="97" class="fl">
+                            </a>
+                            <a href="" style="cursor:default" target="_blank" class="fl">
+                                <img src="__IMG__/fuwu03.jpg" width="205" height="97" class="fl">
+                            </a>
+                            <a href="" target="_blank" class="fl">
+                                <img src="__IMG__/fuwu04.jpg" width="254" height="97" class="fl">
+                            </a>
+                            <a href="" style="cursor:default" target="_blank" class="fl">
+                                <img src="__IMG__/fuwu05.jpg" width="237" height="97" class="fl">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <center>
+                        <a href="">本站仅为学习开发使用   备案号：京dsadd001</a>
+                    </center>
+                </div>
+            </footer>
+    <!--<link href="__CSS__/footer(1).css" rel="stylesheet">-->
+        </div>
+</body>
+</html>

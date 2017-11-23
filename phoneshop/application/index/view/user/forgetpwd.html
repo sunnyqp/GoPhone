@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+ <title>忘记密码</title>
+<link rel="stylesheet" href="__CSS__/basic.css">
+<link rel="stylesheet" href="__CSS__/wjmmstyle.css">
+</head>
+<body id="body">
+    <div class="clear w960 header">
+        <div class="clear logo">
+            <a href="../../" class="image" >
+                <img alt="" src="__IMG__/logo1.jpg" >
+            </a>
+            <p class="title">
+                <img alt="" src="__IMG__/zhmm.png" >
+            </p>
+        </div>
+        <div class="clear tab-page">
+            <p class="tips">（づ￣3￣）づ╭❤～已有账号请直接登录吧</p>
+            <a href="../user/login" class="btn">登录</a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="clear w960">
+            
+            <a target="_blank" href="javascript:void(0)" class="banner">
+                  <img alt="" src="__IMG__/psb.gif" style="margin-top:10px;width: 550px;">
+            </a>
+            
+            <div class="box">
+                <div class="card J_card">
+                    <div class="input-group J_input-group">
+                        <input type="text" id="phone" class="input tel J_telInput" style="color: rgb(153, 153, 153);">
+                        <p id="phoneError" class="tips J_tips"></p>
+                    </div>
+                    <div class="clear input-group J_input-group">
+                        <input type="text" id="messageCode" class="input short" style="color: rgb(153, 153, 153);">
+                        <a href="" class="btn J_msgBtn" id="yzm">获取短信验证码</a>
+                        <p id="messageCodeError" class="tips"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="pwd" placeholder="请设置密码" class="input key J_keyInput">
+                        <p id="pwdError" class="tips J_tips"></p>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="repeatPwd" placeholder="请确认密码" class="input key J_reInput">
+                        <p id="repeatPwdError" class="tips J_tips"></p>
+                    </div>
+                    <div class="clear input-group J_input-group">
+                        <input type="text" id="imgCode" class="input short" placeholder="图形验证码" name ="imgCode" style="color: rgb(153, 153, 153);" >
+                        <div><img src="{:captcha_src()}" name="imgCode" alt="captcha" onclick ="this.src =this.src"/>
+                        <p id="verCodeError" class="tips"></p>
+
+                    </div>
+                     </div>
+                    <a href="javascript:void(0)" id="forgetPwdBth" class="main-button">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>
+            <a href="https://corp.dixintong.com/list.aspx?parent=1&amp;newsclass=10">关于我们</a>
+            <span class="bar">|</span>
+            <a href="https://corp.dixintong.com/list.aspx?parent=1&amp;newsclass=10">联系我们</a>
+            <span class="bar">|</span>
+            <a href="https://www.dixintong.com/links.aspx">友情链接</a>
+            <span class="bar">|</span>
+            <a href="http://user.dixintong.com/UserLogin/UserForgetPwd.aspx#">法律申明</a>
+            <span class="bar">|</span>
+            <a href="http://user.dixintong.com/UserLogin/UserForgetPwd.aspx#">用户体验提升计划</a>
+        </p>
+        <p class="copyright">Powered by GoPhone©号</p>
+    </div>
+
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+    //注册
+    $("#forgetPwdBth").click(function () {
+        var phone = $("#phone").val();
+        var pwd = $("#pwd").val();
+        var repeatPwd = $("#repeatPwd").val();
+        var messageCode = $("#messageCode").val();
+        var imgCode =$("#imgCode").val();
+        if (phone == "") {
+            $("#phoneError").text("手机号不能为空！");
+            return;
+        } else if (!telCheck(phone)) {
+            return;
+        } else if (messageCode == "" || messageCode.length < 4) {
+            $("#messageCodeError").text("短信验证码不能为空！");
+            return;
+        }
+        else if (pwd == "") {
+            $("#pwdError").text("密码不能为空！");
+            return;
+        }
+        else if (!keyCheck(pwd)) {
+            return;
+        } else if (!repeatPwdCheck(pwd, repeatPwd)) {
+            return;
+        } else {
+            //信息都输入正确，则注册
+           $.ajax({
+            type: "POST",
+            url: "../user/forgetpwdcheck",
+            data: { "phone": phone, "pwd": pwd,"messageCode": messageCode,imgCode:imgCode},
+            dataType: 'json',
+            success: function (data) {
+               
+                console.log(data);
+                //手机号或密码是否正确
+                 if (data.code == 0) {
+                    $("#phoneError").text(data.Msg); 
+                    return;
+                } else if(data.code ==1){
+                    $("#messageCodeError").text(data.Msg); 
+                    return;
+                }else if(data.code ==2){
+                    $("#verCodeError").text(data.Msg);
+                }else if(data.code ==3)
+                {
+                    alert(data.Msg);
+                    window.location.href ='../user/login' ;
+                }
+       
+            }
+
+            
+        });
+           return false;
+           
+        }
+    });
+        //获取短信验证码
+    $('#yzm').click(function(){
+
+        var phone = $("#phone").val();
+        if(phone =='请输入手机号')
+        {
+            $("#phoneError").text("请输入手机号");
+        }else{
+
+            $.ajax({
+            type: "GET",
+            url: "../user/zhpass",
+            data: { "phone": phone},
+            dataType: 'json',
+            success: function (data) {
+               
+             if (data.code == 1) {
+                alert(data.Msg); 
+                    return;
+                } else {
+
+                    alert(data.Msg);
+                }
+       
+            }
+        });
+
+        }
+    
+        return false;
+   });
+    
+
+
+
+
+
+    //验证手机号
+    $(".J_telInput").blur(function () {
+        var telNum = $(this).val();
+        telCheck(telNum);
+
+    });
+    telCheck = function (string) {
+        var pattern = /^1[34578]\d{9}$/;
+        if (pattern.test(string)) {
+            $(".J_telInput").next(".J_tips").text("");
+            return true;
+        } else {
+            $(".J_telInput").next(".J_tips").text("您的手机号码不正确");
+            return false;
+        }
+    };
+    //验证密码
+    $(".J_keyInput").blur(function () {
+        var keyText = $(this).val();
+        keyCheck(keyText);
+    });
+    keyCheck = function (string) {
+        var pattern = /^\w{6,18}$/;
+        if (pattern.test(string)) {
+            $(".J_keyInput").next(".J_tips").text("");
+            return true;
+        } else {
+            $(".J_keyInput").next(".J_tips").text("密码长度6-18位，不能有空格或其他特殊字符哦");
+            return false;
+        }
+    };
+    //重复密码
+    $(".J_reInput").blur(function () {
+        var keyText = $(".J_keyInput").val();
+        var reText = $(this).val();
+        repeatPwdCheck(keyText, reText);
+    });
+    repeatPwdCheck = function (keyText, reText) {
+        if (reText === keyText && reText !== "") {
+            $(".J_reInput").next(".J_tips").text("");
+            return true;
+        } else {
+            $(".J_reInput").next(".J_tips").text("两次的密码不一致");
+            return false;
+        }
+    }
+    //兼容低版本浏览器的placeholder
+    var phdArr = ["请输入手机号", "短信验证码"];
+    $(".J_input-group", ".J_card").each(function () {
+        switch ($(this).index()) {
+            case 0:
+                $(this).find(".input").data("phd", phdArr[0]);
+                break;
+            case 1:
+                $(this).find(".input").data("phd", phdArr[1]);
+                break;
+        }
+        $(this).find(".input").val($(this).find(".input").data("phd")).css({ "color": "#999" });
+    })
+
+    $(".J_input-group", ".J_card").focusin(function () {
+        if ($(this).find(".input").val() === $(this).find(".input").data("phd")) {
+            $(this).find(".input").val("").css({ "color": "#333" });
+        }
+    })
+    $(".J_input-group", ".J_card").focusout(function () {
+        if ($(this).find(".input").val() === "") {
+            $(this).find(".input").val($(this).find(".input").data("phd")).css({ "color": "#999" });
+        }
+    })
+</script>
+
+</body></html>

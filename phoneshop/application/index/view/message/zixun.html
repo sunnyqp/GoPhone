@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://www.dixintong.com/news/zxdetail-5148.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>换机好时节 手机新品大合集ready go~-手机资讯-GoPhone</title>
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/zixstyle.css">
+    <script charset="utf-8" src="__JS__/v.js"></script>
+    <script src="__JS__/hm.js"></script>
+    <script src="__JS__/hm(1).js"></script>
+    <script src="__JS__/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="__JS__/tongji_baidu.js" type="text/javascript"></script>
+    <script src="__JS__/infodetail.js"></script>
+    <script src="__JS__/share.js"></script>
+    <link rel="stylesheet" href="__CSS__/share_style2_32.css">
+</head>
+<body>
+    
+<link rel="stylesheet" href="__CSS__/basic(1).css">
+<link rel="stylesheet" href="__CSS__/zixstyle1.css">
+
+<div class="header">
+    <div class="topbar">
+        <div class="clear w1200">
+            <p class="welcome">欢迎来到GoPhone</p>
+            <div class="clear menu">
+                {if !empty($Think.session.username)}
+                <a href="../person/dingdan" class="item">我的订单</a>
+                <span class="divi">|</span>
+                {/if}
+                <a href="../index/lianxi">联系我们</a>
+            </div>
+            {if !empty($Think.session.username)}
+            <div class="clear login-status">
+                <a href="../person/personinfo" class="link">欢迎, {$Think.session.username}</a>
+                <span class="divi"> | </span>
+                <a href="../index/tuichu" class="link" id="">退出</a>
+            </div>
+            {else}
+            <div class="clear login-status">
+                <a href="../user/login" class="link">登陆</a>
+                <span class="divi"> | </span>
+                <a href="../user/Register" class="link" id="exitLogin">注册</a>
+            </div>
+            {/if}
+        </div>
+    </div>
+    <div class="clear w1200 headbar">
+        <a href="" class="logo">
+            <img alt="" src="__IMG__/logo1.jpg">
+        </a>
+        <a href="" class="slogan">
+            <img alt="" src="__IMG__/slogan1.png">
+        </a>
+        <div class="search-container">
+            <div class="clear search-bar" id="searchBar">
+                <form action="../sou/sou" method="post">
+                    <input type="text" class="input" name="so" id="searchInput" placeholder="请输入搜索内容">
+                    <input type="submit" class="btn" id="searchBtn" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="endorse">
+            <a href="javascript:;" class="J_online-service">
+                <img src="__IMG__/kefupic.gif" style="width: 109px;margin-top: -5px;">
+            </a>
+        </div>
+    </div>
+    <div class="clear w1200 nav-container">
+        <div class="nav" id="main-nav">
+            <h2 class="title">全部商品分类</h2>
+            <ul class="list" id="main-list">
+                {if !empty($big)}
+                {foreach $big as $v}
+                <li class="nav-first J_nav-first">
+                    <h2 class="title phone">{$v.name}</h2>
+                    <div class="clear list">
+                        {if (!empty($small))}
+                        {foreach $small as $v1}
+                        {if $v1.pid == $v.id}
+                        <a target="_blank" href="" class="item">{$v1.name}</a>
+                        {/if}
+                        {/foreach}
+                        {/if}
+                    </div>
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <a href="../" class="item index on">首页</a>
+        <a target="_blank" href="../phoneshop/phoneshop" class="item">手机商城</a>
+        <a target="_blank" href="../heikeji/heikeji" class="item">黑科技</a>
+        <a target="_blank" href="../message/message" class="item">资讯评测</a>
+    </div>
+</div>
+<div class="clear aside" id="aside" STYLE="height:50PX;position:fixed;margin-top:700px;">
+    <div class="toolbar" id="toolbar">
+        <a href="javascript:void(0);" class="return-top" id="returnTop">TOP ↑</a>
+    </div>
+</div>
+<script type="text/javascript" src="__JS__/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="__JS__/jquery.cookies.2.2.0.min.js"></script>
+<script type="text/javascript" src="__JS__/header.js"></script>
+
+    <!-- 咨讯详情content -->
+    <div class="info-content clear">
+        <!-- 咨讯左 -->
+        <div class="info-contentleft">
+            <!-- 资讯题目 -->
+            <div class="infoheader">
+                {foreach $zixuninfo as $v}
+                <h2 class="info-tit">{$v.title}</h2>
+                <p class="frombox clear">
+                    <span class="frombrand">来自：<i>GoPhone</i></span>
+                    <span class="info-time">{$v.create_time}</span>
+                    <span class="info-clicknum">点击量：<i>{$v.click}</i></span>
+                </p>
+                <div class="brandinfo" style="display: none;">
+                    <a href="http://www.dixintong.com/news/zxdetail-5148.html###" class="brandtext">魅族MX6（全网通）</a>
+                </div>
+            </div>
+            <!-- 内容区 -->
+            <div class="info-textbox">
+                <center><img src="__IMG__/{$v.photo}"></center>
+                <p style="margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding:0 0 0 0;font-size:16px;">
+                    {$v.content}
+                </p>
+            </div>
+            {/foreach}
+            <!-- zan -->
+            <div class="praisebox">
+                <a href="javascript:void(0);" class="info-zanbtn">
+                </a>
+                <!-- 百度分享代码 -->
+                <div class="bdsharebuttonbox bdshare-button-style2-32" style="margin-left: 754px; margin-top: -57px;" data-bd-bind="1508809846973"><a href="http://www.dixintong.com/news/zxdetail-5148.html#" class="bds_more" data-cmd="more"></a><a href="http://www.dixintong.com/news/zxdetail-5148.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="http://www.dixintong.com/news/zxdetail-5148.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "2", "bdSize": "32" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+            </div>
+            <!-- 文章标题 -->
+            <div class="article-tit">
+                {if !empty($zixunup)}
+                {foreach $zixunup as $v}
+                <p class="clear">
+                    <span class="fl">上一篇</span>
+                    <a href="./zixun?id={$v.id}" class="fl">{$v.title}</a>
+                </p>
+                {/foreach}
+                {/if}
+
+                {if !empty($zixundown)}
+                {foreach $zixundown as $v}
+                <p class="clear">
+                    <span class="fl">下一篇</span>
+                    <a href="./zixun?id={$v.id}" class="fl">{$v.title}</a>
+                </p>
+                {/foreach}
+                {/if}
+
+            </div>
+        </div>
+
+        <!-- 咨讯右 -->
+        <div class="info-contentright">
+            <!-- 相关资讯 -->
+            <div class="relatedinfo">
+                <h3 class="right-tit1">相关咨讯</h3>
+                <ul class="relatedlist">
+                    {if !empty($zi3xun)}
+                    {foreach $zi3xun as $v}
+                    <li class="imgli">
+                        <a target="_blank" href="./zixun?id={$v.id}" class="imgbox">
+                            <img src="__IMG__/{$v.photo}" alt="">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./zixun?id={$v.id}" target="_blank">{$v.title}</a>
+                    </li>
+                    {/foreach}
+                    {/if}
+                </ul>
+            </div>
+
+            <!-- 推荐商品 -->
+        </div>
+    </div>
+
+<link href="__CSS__/basic(2).css" rel="stylesheet">
+<link href="__CSS__/not-found404.css" rel="stylesheet">
+
+<style type="text/css">
+	.footer-warp  div a,.footer-warp div a img { cursor:pointer; }
+</style>
+
+<footer>
+    <div class="footer">
+        <div class="footer-warp">
+            <div class="footer-top clear">
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu01.jpg" width="256" height="97" class="fl">
+                </a>
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu02.jpg" width="214" height="97" class="fl">
+                </a>
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu03.jpg" width="205" height="97" class="fl">
+                </a>
+                <a href="" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu04.jpg" width="254" height="97" class="fl">
+                </a>
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu05.jpg" width="237" height="97" class="fl">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <center>
+            <a href="">本站仅为学习开发使用   备案号：京dsadd001</a>
+        </center>
+    </div>
+</footer>
+
+    <script>
+        $('#videoplayer').css('height', '450px');
+    </script>
+</body>
+</html>

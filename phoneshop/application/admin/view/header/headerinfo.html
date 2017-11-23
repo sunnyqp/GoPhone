@@ -1,0 +1,27 @@
+<header>
+ <h1><img src="__IMG__/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <input type="hidden" name="type" id="type" class="text" style="width:50px" value="temp\" />
+  <li><a href="" class="clear_icon" id="clearicon">清除缓存</a></li>
+  <li><a href="{:url('admin/header/tuichu')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+<script type="text/javascript">
+  $(function(){
+    $('#clearicon').click(function(){
+      if(confirm("确认要清除模板缓存目录?")){
+        var $type =$('input[name=type]').val();
+        $.post("{:url('admin/admin/clear')}",{type:$type},function(data){
+          console.log($('input[name=type]').val());
+          //alert("缓存清理成功");
+        })
+
+      }
+        return false;
+      
+    })
+
+
+
+  })
+</script>

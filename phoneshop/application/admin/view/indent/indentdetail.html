@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>后台管理系统</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__CSS__/style.css">
+<!--[if lt IE 9]>
+<script src="__JS__/html5.js"></script>
+<![endif]-->
+<script src="__JS__/jquery.js"></script>
+<script src="__JS__/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+
+	(function($){
+		$(window).load(function(){
+			
+			$("a[rel='load-content']").click(function(e){
+				e.preventDefault();
+				var url=$(this).attr("href");
+				$.get(url,function(data){
+					$(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+					//scroll-to appended content 
+					$(".content").mCustomScrollbar("scrollTo","h2:last");
+				});
+			});
+			
+			$(".content").delegate("a[href='top']","click",function(e){
+				e.preventDefault();
+				$(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+			});
+			
+		});
+	})(jQuery);
+</script>
+</head>
+<body>
+{include file="../application/admin/view/header/headerinfo.html" /}
+<!--aside nav-->
+<!--aside nav-->
+{include file="../application/admin/view/aside/asides.html" /}
+<section class="rt_wrap content mCustomScrollbar">
+{if $result}
+{foreach $result as $vo}
+ <div class="rt_content">
+      <div class="page_title">
+       <h2 class="fl">订单详情</h2>
+      </div>
+      <table class="table">
+       <tr>
+        <td>收件人:{$vo.consignee}</td>
+        <td>联系电话:{$vo.phone}</td>
+        <td>收件地址:{$vo.address}</td>
+        <td>创建时间:{$vo.create_time}</td>
+       </tr>
+       <tr>
+        {switch name="$vo.is_express"}
+        {case value="0"} <td class="center">订单状态:<span style="color:red;">待付款,待发货,待收货，已完成</span></td>{/case}
+        {case value="1"} <td class="center">订单状态:<span >待付款</span>,<span style="color:red;">待发货,待收货，已完成</span></td>{/case}
+        {case value="2"} <td class="center">订单状态:待付款,待发货,<span style="color:red;">待收货，已完成</span></td>{/case}
+        {case value="3"}<td>订单状态:待付款,待发货,待收货,<span style="color:red;">已完成</span></td>{/case}
+        {case value="4"}<td>订单状态:待付款,待发货,待收货,已完成</td>{/case}
+        {/switch}
+        <input type ="hidden" value="{$vo.is_express}" name ="hidden">
+        <td colspan="3">订单备注：<mark>{$vo.remark}</mark></td>
+        </tr>
+      </table>
+      <table class="table">
+        <tr>
+          <th>订单编号</th>
+          <th>商品图片</th>
+          <th>商品名称</th>
+          <th>商品价格</th>
+          <th>商品参数</th>
+          <th>商品数量</th>
+          <th>实付价格</th>
+        </tr>
+       <tr>
+        <td><span id="">{$vo.dingnum}</span></td>
+        <input type ="hidden" value="{$vo.id}" name ="indentid">
+        <td class="center"><img src="{$vo.picture}" width="50" height="50"/></td>
+        <td>{$vo.name}</td>
+        <td class="center"><strong class="rmb_icon">{$vo.money}</strong></td>
+        <td class="center">
+         <p>颜色:{$vo.color}</p>
+         <p>屏幕大小：{$vo.size}</p>
+        </td>
+        <td class="center"><strong>{$vo.number}</strong></td>
+        <td class="center"><strong class="rmb_icon">{$vo.payable}</strong></td>
+       </tr>
+       {/foreach}
+       {/if}
+      </table>
+      <aside class="mtb" style="text-align:right;">
+       <input type="button" value="付款" class="group_btn" name="fk"/>
+       <input type="button" value="发货" class="group_btn" name ="fh"/>
+       <input type="button" value="待收货" class="group_btn" name='sh'/>
+       <input type="button" value="确认" class="group_btn" name ='qr'/>
+
+      </aside>
+ </div>
+</section>
+</body>
+</html>
+<script type="text/javascript">
+  $(function(){
+
+    var is_express=$('input[name=hidden]').val();
+
+     if(is_express ==1){
+          $('input[name=fk]').hide();
+        }else if(is_express==2)
+        {
+          $('input[name=fk]').hide();
+          $('input[name=fh]').hide();
+        }else if(is_express==3)
+        {
+          $('input[name=fk]').hide();
+          $('input[name=fh]').hide();
+          $('input[name=sh]').hide();
+        }else if(is_express==4){
+          $('input[name=fk]').hide();
+          $('input[name=fh]').hide();
+          $('input[name=sh]').hide();
+          $('input[name=qr]').hide(); 
+        }else{
+          $('input[name=fk]').show();
+          $('input[name=fh]').show();
+          $('input[name=sh]').show();
+          $('input[name=sh]').show();
+        }
+    $('input[name=fk]').click(function(){
+        var oid =$('input[name=indentid]').val();;
+         var flag =confirm("买家已付款？");
+         if(flag)
+         {
+            $.post("{:url('indentfk')}", {oid:oid}, function(data){
+            //$data = $.parseJSON(data);
+           if(data.code == 0){
+            alert(data.Msg);
+            window.location.reload();
+            $tr.remove();
+
+            }else{
+            //若 data 的返回值不是 1, 提示删除失败. 
+            alert(data.Msg);
+            }
+
+            },'json');
+          }
+    })
+      $('input[name=fh]').click(function(){
+        var oid =$('input[name=indentid]').val();;
+         var flag =confirm("订单已发货？");
+         if(flag)
+         {
+            $.post("{:url('indentfh')}", {oid:oid}, function(data){
+            //$data = $.parseJSON(data);
+          if(data.code == 0){
+            alert(data.Msg);
+            window.location.reload();
+            $tr.remove();
+
+            }else{
+            //若 data 的返回值不是 1, 提示删除失败. 
+            alert(data.Msg);
+            }
+
+            },'json');
+          }
+    })
+   $('input[name=sh]').click(function(){
+        var oid =$('input[name=indentid]').val();
+         var flag =confirm("商品已收货？");
+         if(flag)
+         {
+            $.post("{:url('indentsh')}", {oid:oid}, function(data){
+            //$data = $.parseJSON(data);
+          if(data.code == 0){
+            alert(data.Msg);
+            window.location.reload();
+            $tr.remove();
+
+            }else{
+            //若 data 的返回值不是 1, 提示删除失败. 
+            alert(data.Msg);
+            }
+
+            },'json');
+          }
+    })
+    $('input[name=qr]').click(function(){
+        var oid =$('input[name=indentid]').val();
+         var flag =confirm("订单已完成");
+         if(flag)
+         {
+            $.post("{:url('indentqr')}", {oid:oid}, function(data){
+            //$data = $.parseJSON(data);
+          if(data.code == 0){
+            alert(data.Msg);
+            window.location.reload();
+            $tr.remove();
+
+            }else{
+            //若 data 的返回值不是 1, 提示删除失败. 
+            alert(data.Msg);
+            }
+
+            },'json');
+          }
+    })
+  
+  });
+</script>

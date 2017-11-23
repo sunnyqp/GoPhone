@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>我的个人信息</title>
+
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/geren.css">
+    <script src="__JS__/jquery-1.7.2.min.js"></script>
+    <script src="__JS__/usercommon.js"></script>
+    <script src="__JS__/YMDClass.mini.js"></script>
+    <script src="__JS__/userinfo.js"></script>
+    <script src="__JS__/jquery.form.js"></script>
+    <script>
+        $(function () {
+            $('#search').on('click', function () {
+                window.open("https://shop.dixintong.com/list.aspx?key=" + unescape($('#searchtxt').val()));
+            })
+        })
+    </script>
+</head>
+<body>
+
+    <!-- head -->
+    <div class="head">
+        <div class="header">
+            <h1 class="fl logo">
+                <a target="_blank" href="https://www.dixintong.com/">
+                    <img src="__IMG__/logo1.jpg" alt="">
+                </a>
+            </h1>
+            <p class="mydi fl">
+                <i></i>我的GoPhone
+            </p>
+            <ul class="headernav fl">
+                <li class="fl">
+                    <a href="../../" class="headernavactive">首页</a>
+                </li>
+                <li class="fl" style="display:none;">
+                    <a href="javascript:;">账户管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- con -->
+    <div class="con">
+        <!-- content  -->
+        <div class="content">
+            <!-- content-left -->
+            <div class="content-left">
+                <a class="clhead" href="https://user.dixintong.com/UserCenter/orders.aspx">个人中心
+				<span class="mail">
+                    <i class="mailnum">0</i>
+                </span>
+                </a>
+
+                <div class="clmain">
+                    <h3 class="clmhead">订单中心</h3>
+                    <ul class="clmainul">
+                        <li><a href="../person/dingdan">我的订单</a></li>
+
+                        <li><a href="../phoneinfo/gouwuche">我的购物车</a></li>
+                    </ul>
+                </div>
+
+                <div class="clmain">
+                    <h3 class="clmhead">关注中心</h3>
+                    <ul class="clmainul">
+                        <li><a href="../guanzhu/guanzhu" >关注的商品</a></li>
+                        <li><a href="../guanzhu/liulanlishi">浏览历史</a></li>
+                    </ul>
+                </div>
+
+                <div class="clmain">
+                    <h3 class="clmhead">账户设置</h3>
+                    <ul class="clmainul">
+                        <li><a href="../person/personinfo" class="clmainactive">个人信息</a></li>
+                        <li><a href="../person/address" >收货地址</a></li>
+                        <li><a href="../person/gaimima">账号管理</a></li>
+                    </ul>
+                </div>
+                <div class="clmain">
+                    <h3 class="clmhead">特色</h3>
+                    <ul class="clmainul">
+                        <li><a href="../person/huoche">列车查询</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="userinfo-cr clear">
+                <h2 class="userinfo-tit">个人信息</h2>
+                <p style="font-size: 15px;margin-left:50px;margin-top: 20px;">欢迎 ，<b>{$username}</b></p>
+                <form action="../person/upload" method="post" enctype="multipart/form-data">
+                    <div class="userinfo-box">
+                        <p class="ui-phone">
+                            <span class="ui-phonetext">手机：</span>
+                            <input type="text" value="{$phone}" name="phone" style="border: 1px solid #cccccc;">
+                        </p>
+                        <div class="ui-img">
+                            <span class="ui-imgtext">头像：</span>
+                            <div class="ui-imgbox">
+                                <img src="{$userpic}" alt="" style="width: 98px; height: 98px;">
+                            </div>
+                        </div>
+                        <input type="file" name="image" style="margin-left:40px;"/>
+                        <br/><br/><br/>
+                        <p class="ui-nickname">
+                            <span class="ui-nicknametext">昵称：</span>
+                            <input type="text"  value="{$nickname}" name="nickName">
+                            <span class="ui-nicknametip"></span>
+                        </p>
+                        <p class="ui-realname ">
+                            <span class="ui-nicknametext">真实姓名：</span>
+                            <input type="text" value="{$realname}" name="zsName">
+                        </p>
+                        <p class="ui-sex">
+                            <span class="ui-sextext">性别：</span>
+                            {if $sex==1}
+                                <input type="radio" name="sex" checked style="margin-left: 30px;" value="1">男</input>
+                                <input type="radio" name="sex"  style="margin-left:30px;" value="0">女</input>
+                            {else}
+                                <input type="radio" name="sex"  style="margin-left: 30px;" value="1">男</input>
+                                <input type="radio" name="sex" checked style="margin-left:30px;" value="0">女</input>
+                            {/if}
+                        </p>
+                        <p class="ui-mail">
+                            <span class="ui-mailtext">邮箱📪：</span>
+                            <input type="text" id="mail" value="{$email}" name="email">
+                        </p>
+                        <input type="submit" value="保存" style="width:70px;height:40px;background-color:#e90000;color:white;margin-left:140px;"/>
+                    </div>
+                </form>
+                <div style="border:0px solid red;width: 300px;height: 300px;float: right;margin-top:-580px;margin-right:100px;">
+                    <font color="blue" size="6">来测测你的身高体重是否标准吧😏</font>
+                    <form action="../person/personinfo" method="post" style="border: 0px solid red;width:300px;">
+                        请输入身高：<input type="number" min="0" max="300" name="gao" style="border: 1px solid #cccccc;height:30px;">Cm<br/>
+                        请输入体重：<input type="number" min="0" max="500" name="zhong" style="border:1px solid #cccccc;height:30px;">Kg<br/><br/>
+                        <input type="submit" value="提交查看结果" style="height:40px;width:90px;color:white;background-color:#c018ff;margin-left:30px;">
+                    </form><br/>
+                    {if !empty($tizhong)}
+                    <p>结果：</p>
+                        BMI指数：{$tizhong['bmi']} <br/>
+                        正常BMI指数:{$tizhong['normbmi']} <br/>
+                        理想体重:{$tizhong['idealweight']}<br/>
+                        水平:{$tizhong['level']}
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

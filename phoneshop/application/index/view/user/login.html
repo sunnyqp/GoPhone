@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta property="qc:admins" content="352230531564101647676375">
+    <script type="text/javascript" src="__JS__/qc_loader.js" data-appid="101235332" data-redirecturi="http://user.dixintong.com/ThirdLogin/Index" charset="utf-8">
+	</script>
+    <script src="__JS__/qc-1.0.1.js" type="text/javascript" data-appid="101235332" data-redirecturi="../../" charset="utf-8">
+	</script>
+    <script src="__JS__/wb.js" type="text/javascript" charset="utf-8"></script>
+    <script charset="UTF-8" src="__JS__/query"></script>
+    <title>用户登录 </title>
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/logstyle.css">
+    <link rel="stylesheet" href="__CSS__/layer.css" id="layuicss-skinlayercss">
+    </head>
+<body id="body">
+    <div class="clear w960 header">
+        <div class="clear logo">
+            <a href="../../" class="/images/Login fl">
+                <img alt="" src="__IMG__/logo1.jpg">
+            </a>
+            <p class="title">
+                <img alt="../../" src="__IMG__/zhmm.png">
+            </p>
+        </div>
+        <div class="clear tab-page">
+            <p class="tips">（づ￣3￣）づ╭❤～赶快注册吧</p>
+            <a href="../user/register" class="btn">注册</a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="clear w960">
+            
+            <a href="../../" class="banner">
+                <img alt="" src="__IMG__/psb.gif " style="margin-top:10px;width: 550px;">
+            </a>
+            <div class="box J_box">
+                <div class="card J_card">
+                    <div class="input-group J_input-group">
+                        <input type="text" id="phone" placeholder="请输入手机号" class="input tel J_telInput" style="color: rgb(153, 153, 153);">
+                        <p id="phoneError" class="tips J_tips"></p>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="pwd" placeholder="请输入密码" class="input key">
+                        <p id="pwdError" class="tips"></p>
+                    </div>
+                    <div class="clear input-group J_input-group" style="display:none;">
+                        <input type="text" id="code" placeholder="请输入验证码" class="input short" style="color: rgb(153, 153, 153);">
+                        <a href="javascript:void(0)" onclick="verCodeLoad()" class="/images/Login">
+                            <img id="verCode" alt="" src="" style="width: 90px; height: 40px;">
+                        </a>
+                        <p id="codeError" class="tips"></p>
+                    </div>
+                    <div class="choose">
+                        <a href="../user/forgetpwd" class="link">忘记密码</a>
+                    </div>
+                      <p id="Error" class="tips J_tips"></p>
+                    <a href="javascript:void(0)" id="loginBtn" class="main-button">登录</a>
+                    <div class="other-login" style="display:block;">
+                        <h3 class="title">使用合作网站账号登录GoPhone</h3>
+                        <div class="clear list">
+                            <div id="hzy_fast_login" style="width:40px;margin:0 auto;"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>
+            <a href="https://corp.dixintong.com/list.aspx?parent=1&amp;newsclass=10">关于我们</a>
+            <span class="bar">|</span>
+            <a href="https://corp.dixintong.com/list.aspx?parent=1&amp;newsclass=10">联系我们</a>
+            <span class="bar">|</span>
+            <a href="https://www.dixintong.com/links.aspx">友情链接</a>
+            <span class="bar">|</span>
+            <a href="http://user.dixintong.com/UserLogin/UserLogin.aspx?backurl=http://www.dixintong.com/index.aspx#">法律申明</a>
+            <span class="bar">|</span>
+            <a href="http://user.dixintong.com/UserLogin/UserLogin.aspx?backurl=http://www.dixintong.com/index.aspx#">用户体验提升计划</a>
+        </p>
+        <p class="copyright">Powered by GoPhone© 京ICP备11010605号</p>
+    </div>
+
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<script type="text/javascript" src="http://open.51094.com/user/myscript/159e93fbbe9c2c.html"></script>
+<script type="text/javascript">
+    //用户登录
+    $("#loginBtn").click(function() {
+        var phone = $("#phone").val();//手机号
+        var pwd = $("#pwd").val();//密码
+        var code = "";// $("#code").val();//验证码
+        if (phone == "") {
+            $("#phoneError").text("手机号不能为空！");
+            return;
+        }
+        //验证手机号是否正确
+        if (telCheck(phone)==false) {
+            return;
+        }
+        if (pwd == "") {
+            $("#pwdError").text("密码不能为空！");
+            return;
+        } else {
+            $("#pwdError").text("");
+        }
+        //登陆
+        $.ajax({
+            type: "POST",
+            url: "/index/user/logcheck",
+            data: { "phone": phone, "pwd": pwd,},
+            dataType: 'json',
+            success: function (data) {
+               
+                //手机号或密码是否正确
+                 if (data.State == 1) {
+                    $("#pwdError").text(data.Msg); 
+                    return;
+                } else {
+                    window.location.href ='../../' ;
+
+                }
+
+            }
+        });
+    }); 
+    //验证手机号
+    $(".J_telInput").blur(function() {
+        var telNum = $(this).val();
+        telCheck(telNum);
+    });
+    telCheck = function (string) {
+        var pattern = /^1[34578]\d{9}$/;
+        if (pattern.test(string)) {
+            $(".J_telInput").next(".J_tips").text("");
+            return true;
+        } else {
+            $(".J_telInput").next(".J_tips").text("您的手机号码不正确");
+            return false;
+        }
+    };
+    //兼容低版本浏览器的placeholder
+    var phdArr = ["请输入手机号", "请输入验证码"];
+    $(".J_input-group", ".J_card").each(function () {
+        switch ($(this).index()) {
+            case 0:
+                $(this).find(".input").data("phd", phdArr[0]);
+                break;
+            case 2:
+                $(this).find(".input").data("phd", phdArr[1]);
+                break;
+        }
+        $(this).find(".input").val($(this).find(".input").data("phd")).css({ "color": "#999" });
+    })
+
+    $(".J_input-group", ".J_card").focusin(function () {
+        if ($(this).find(".input").val() === $(this).find(".input").data("phd")) {
+            $(this).find(".input").val("").css({ "color": "#333" });
+        }
+    })
+    $(".J_input-group", ".J_card").focusout(function () {
+        if ($(this).find(".input").val() === "") {
+            $(this).find(".input").val($(this).find(".input").data("phd")).css({ "color": "#999" });
+        }
+    })
+    var ruleStr = '<div class="ruleBox" style="padding:5px 10px;"><h3>本条款自2016年11月21日生效。具体项目信息请访问www.beanz.cn 。</h3>' +
+
+    '<p>&nbsp;&nbsp;惠豆项目（以下简称“项目”）由北京汇积分数据科技有限公司运营。（以下简称“汇积分”、“我们”、“我们的”）当您参加此项目成为惠豆（以下简称“惠豆”）会员时，我们许可您在与联盟合作伙伴零售商和服务商交易时积累积分并用惠豆兑换由我们联盟内旅游商、制造商、零售商或服务商（以下简称“供应商”）提供的商品、奖券或其它奖励（以下统称“奖励”）。注册会员以及相关的项目服务由惠豆提供。在您加入惠豆会员并积累惠豆时，您同意您已阅读和理解惠豆项目条款，并遵守相关使用要求。您同意在惠豆隐私条款 （见下文）的保护下，分享您惠豆积累的相关信息。</p>' +
+
+    '<h3>对您的隐私做出承诺</h3>' +
+    '<p>&nbsp;&nbsp;我们承诺保护您的隐私。我们收集信息，竭诚为您提供更优质的服务，优化您的积分使用。您有权利在任何时候选择退用这项服务。我们会收集以下信息：（1）当您注册成为惠豆会员和当您使用惠豆提供的服务时所提供给我们的信息，包括但不限于地理信息、个人身份信息、联络信息和偏好信息。（2）您在使用我们的服务时所生成的数据：除您已提供给我们的信息外，我们也可能收集其它数据以改善我们的服务，包括从我们合作伙伴方购买数据，您在联络我们客户服务中心时提供的信息和您在填写我们的调查表时提供的信息。关于隐私保护更多详情请关注www.beanz.cn/privacy。如若我们的业务转移给新的所有人，我们会在移交相关会员个人信息前或更新隐私政策规定前给予会员通知。</p>' +
+
+    '<h3>加入惠豆</h3>' +
+    '<p>&nbsp;&nbsp;成为惠豆会员您须给我们提供：（1）在中国可用的手机号码（2）用户名。除此之外，您必须年满18周岁。我们接受到您的申请后会将您纳为会员，您便可以收集惠豆，我们也将发给您一个会员号码和一张虚拟卡。项目包括全部积分、会员卡，每份证明或其它可以兑换奖励的文件（同“证明”）以及与上述相关的全部权利，我们对以上内容拥有所有权。</p>' +
+
+
+
+    '<p>&nbsp;&nbsp;由项目中积累、兑换积分，获取奖励的行为所产生的全部税额和额外支出由您自身承担。除非我们制定相关条款并由我们自行决定收取相关费用，否则您现在不可以转移、出售、交换、让出、或以其它方式处置任何积分。</p>' +
+
+
+
+    '<p>&nbsp;&nbsp;您在我们的合作伙伴处进行交易时须出示会员卡或提供电话号码以证明您的会员身份。您只能从惠豆合作伙伴方积累积分。在您与我们信誉良好的合作伙伴交易时，我们将在接到伙伴方通知后为您的会员账户发放积分。如因伙伴方延误或并未告知而产生的积分延迟入账，我们不承担任何法律责任。鉴于有些伙伴方地点可能并未加入项目，我们可能拒绝为您账户记入积分，如已经记入，我们可能撤销。如若伙伴方对我们有未偿款项或告知我们撤销积分（例如您退回或未支付已发放积分产品或服务），我们也可能撤销积分。伙伴方将决定其发行积分的条款并可以无需通知随时改变条款。我们和伙伴方对任何失效的积分方案不承担任何法律责任。任何纠纷须由您与伙伴方之间解决。如若您认为账户里的积分数有误，您须在交易结束后60天内告知我们，否则您账户中的积分数将被视为是正确的，除非您账户中有多余积分记入。我们需要您提交相关材料以支持您的索赔。</p>' +
+
+
+
+    '<p>&nbsp;&nbsp;您在联络我们客户服务中心或兑换积分时需提供您的电话号码。任何知道您电话号码或用户名和密码的人可以进入您的账户，修改您账户的具体内容并可以兑换您账户内的积分。您负责您的密码保密工作，所有通过您密码发生的活动以及告知我们任何对您密码进行的未授权使用。我们对您未遵守上述规定所产生的任何损失不承担任何法律责任。如您的电话号码变更，请立即通知我们。</p>' +
+
+
+
+    '<p>&nbsp;&nbsp;如果连续12个月您的任何会员账户都没有积分记入或兑换，我们可无需通知或赔偿您取消您全部账户中的积分。</p>' +
+
+    '<p>&nbsp;&nbsp;账户中至少4年的积分将在积分记入账户的四周年后的第一个日历季度的最后一天过期，对此我们无需通知或赔偿您。例如：由2016年12月31日当天或之前记入账户的积分将被视为在2016年12月31日当天记入</p>' +
+
+    '<h3>积分兑换</h3>' +
+    '<p>&nbsp;&nbsp;积分无现金、货币或其它价值，不能被兑换成任何货币。他们以商品、兑换券和其它奖励计入。您可以通过我们的网站、APP应用兑换积分奖励。</p>' +
+
+    '<p>&nbsp;&nbsp;您根据上述条款及支付我们的相关费用兑换积分。您账户中的积分数和用以获取任何特别奖励的积分数会由我们客户服务中心核定。一旦奖励，如商品、礼券等被寄出，将不能更改。如商品破损可以退款，依据其相关政策直接与供应商对接。全部奖励取决于供应商决定的限制条款。我们对奖励的任何损失、破损、缺陷、等其他意外或开支，以及奖励因任何原因与您期待不符不承担任何法律责任。</p>' +
+
+    '<h3>有限责任</h3>' +
+    '<p>&nbsp;&nbsp;如因不可抗力或其他惠豆无法控制的原因使惠豆系统崩溃或无法正常使用导致网上交易无法完成或丢失有关的信息、记录等,惠豆不承担责任。但是惠豆会尽可能合理地协助处理善后事宜,并努力使客户免受经济损失。</p>' +
+
+    '<p>&nbsp;&nbsp;除了惠豆的使用条件中规定的其它限制和除外情况之外,在中国法律法规所允许的限度内,对于因交易而引起的或与之有关的任何直接的、间接的、特殊的、附带的、后果性的或惩罚性的损害,或任何其它性质的损害,项目、汇积分的董事、管理人员、雇员、代理或其它代表在任何情况下都不承担责任。</p>' +
+
+
+    '<p>&nbsp;&nbsp;任何关于：（1）项目或您在项目的参与；或（2）我们在实施项目或修订积分兑换条款时做出的决定导致的任何失败、延误；或（3）您会员卡或密码的未授权使用；或（4）伙伴方、供应商或任何个人提出的任何关于项目、伙伴方或供应商或其商品和服务的方案、介绍、证明或索赔；或（5）购买、兑换或使用伙伴方或供应商的任何产品或服务，包括任何旅行安排或其它奖励，无论是由我们及我们的附属公司、伙伴方、供应商或其它方提供的所引起的直接或间接地伤害（包括赔偿、事故、间接、特殊、惩罚，偶然或损害赔偿或收入或利润损失赔偿）。伙伴方和供应商对项目概不负责。</p>' +
+
+    '<p>&nbsp;&nbsp;我们在任何情况因任何疏忽、违反合约或其它对您或任何其他获得您积分兑换利益的人的责任不超过根据上述情况为您账户发放您已兑换的积分数量。</p>' +
+
+    '<h3>终止，变更及违约</h3>' +
+    '<p>&nbsp;&nbsp;我们可以有可能变更此条款，以及项目的任何方面，包括预约条件、兑换步骤、已经积累积分价值以及任何与奖励的相关的内容。我们作此变更时不会另行通知。有关现有条款和其它项目详情敬请关注wwww.beanz.cn或致电我们的客户服务中心。例如但不限于，我们可以增加、删减或变更伙伴方、供应商、积分积累时限、积分兑换或使用、文书证明或奖励、兑换条件或步骤，或者特定奖励兑换所需积分数量。如果您的账户中12个月无积分计入，或者您宣布破产、有欺诈、歪曲事实行径、违反条款规定、滥用您项目特权、或采取任何对我们、我们伙伴方或供应商有害的行为，我们可以在不影响我们其它权利的情况下，依有关方要求，披露以上信息，取消您的会员身份和/或取消您的积分和奖励。如果一定积分或奖励过期，或由于任何原因被取消，将被视为无效作废，并不作任何赔偿。</p>' +
+
+    '<h3>通用条款</h3>' +
+    '<p>&nbsp;&nbsp;这些条款可能与您了解的项目内容不同。这些条款包含您与我们之间关于您参加项目、积累兑换积分权利以及享有项目其它利益权利的全部协议，并取代以前全部版本。除条款中明文规定外无其它条件、说明、保证、法令或其它。您在与我们进行网络交易时，通过电子通信同意我们构建合约关系。我们对该条款及关于项目或奖励的任何其它问题或纠纷拥有最终解释权。除非我们特别提选，否则关于该条款的任何纠纷，包括有效性、成立、约束力、阐释、效力、违约或终止、侵权索赔应最终由单一仲裁人决定，而非法庭。仲裁应在中国北京，用中文语言，依据中国法律进行。仲裁应遵守中国仲裁法例。仲裁应在严格机密的情形下进行，不向任何人透露纠纷本身或其它方面的内容，除非是为解决纠纷之目的。我们将不会放弃我们的任何权利，即使我们在不需要时兑换积分或发放证书。积分和证书无现金、货币或其它价值，也不能被兑换为任何货币。我们给您发送的全部资料和通知将被详细记录在案。如有任何变更，请告知我们。项目及全部规定和条款受中国法律约束。如果条款中任何规定是无效的或无法履行的，该规定不应影响其它条款项的有效性和可执行性。</p>' +
+
+    '<h3>2017北京汇积分数据科技有限公司</h3></div>';
+
+    //点击惠豆服务条款
+    $("#tk").on('click', function () {
+        //重新给指定层设定width、top等
+
+        var rule = layer.open({
+            type: 1,
+            shadeClose: true,
+            title: '惠豆服务条款',
+            //skin: 'layui-layer-rim', //加上边框
+            area: ['80%', '80%'], //宽高
+            content: ruleStr,
+            end: function () {
+
+                //$("#aotuLogin").attr('checked', true);
+            }
+        });
+
+    })
+</script>
+</body></html>

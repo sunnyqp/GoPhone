@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+	欢迎来到GoPhone
+</title>
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/detail-page2.css">
+    <link href="__IMG__/phone-yzm.css" rel="stylesheet">
+    <link href="__CSS__/pagination.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/city-picker.css" rel="stylesheet">
+    <link href="__CSS__/duibi.css" rel="stylesheet">
+    <link rel="stylesheet" href="__BOT__/css/bootstrap.css">
+
+    <script src="__JS__/hm.js.下载"></script>
+    <script charset="utf-8" src="__JS__/v.js.下载"></script>
+    <script src="__JS__/hm.js(1).下载"></script>
+    <script src="__JS__/hm.js(2).下载"></script>
+    <script type="text/javascript" src="__JS__/jquery-1.7.2.js.下载"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js.下载"></script>
+    <script type="text/javascript" src="__JS__/detail-page.js.下载"></script>
+    <script type="text/javascript" src="__JS__/jquery.cookies.2.2.0.min.js.下载"></script>
+    <script type="text/javascript" src="__JS__/tlib.js.下载"></script>
+    <script src="__JS__/compare.js.下载"></script>
+    <script src="__JS__/tongji_baidu.js.下载"></script>
+<script src="https://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=418967"></script>
+</head>
+<body dh="1" rlt="1" style="">
+<link rel="stylesheet" href="__CSS__/basic.css">
+<link rel="stylesheet" href="__CSS__/infostyle.css">
+
+<div class="header">
+    <div class="topbar">
+        <div class="clear w1200">
+            <p class="welcome">欢迎来到GoPhone</p>
+            <div class="clear menu">
+                {if !empty($Think.session.username)}
+                <a href="../person/dingdan" class="item">我的订单</a>
+                <span class="divi">|</span>
+                {/if}
+                <a href="../index/lianxi" >联系我们</a>
+            </div>
+            {if !empty($Think.session.username)}
+            <div class="clear login-status">
+                <a href="../person/personinfo" class="link">欢迎, {$Think.session.username}</a>
+                <span class="divi"> | </span>
+                <a href="../index/tuichu" class="link" id="">退出</a>
+            </div>
+            {else}
+            <div class="clear login-status">
+                <a href="../user/login" class="link">登陆</a>
+                <span class="divi"> | </span>
+                <a href="../user/Register" class="link" id="exitLogin">注册</a>
+            </div>
+            {/if}
+        </div>
+    </div>
+    <div class="clear w1200 headbar">
+        <a href="" class="logo">
+            <img alt="" src="__IMG__/logo1.jpg">
+        </a>
+        <a href="" class="slogan">
+            <img alt="" src="__IMG__/slogan1.png">
+        </a>
+        <div class="search-container">
+            <div class="clear search-bar" id="searchBar">
+                <form action="../sou/sou" method="post">
+                    <input type="text" class="input" name="so" id="searchInput" placeholder="请输入搜索内容">
+                    <input type="submit" class="btn" id="searchBtn" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="endorse">
+            <a href="javascript:;" class="J_online-service">
+                <img src="__IMG__/kefupic.gif" style="width: 109px;margin-top: -5px;">
+            </a>
+        </div>
+    </div>
+    <div class="clear w1200 nav-container">
+        <div class="nav" id="main-nav">
+            <h2 class="title">全部商品分类</h2>
+            <ul class="list" id="main-list">
+                {if !empty($big)}
+                {foreach $big as $v}
+                <li class="nav-first J_nav-first">
+                    <h2 class="title phone">{$v.name}</h2>
+                    <div class="clear list">
+                        {if (!empty($small))}
+                        {foreach $small as $v1}
+                        {if $v1.pid == $v.id}
+                        <a target="_blank" href="" class="item">{$v1.name}</a>
+                        {/if}
+                        {/foreach}
+                        {/if}
+                    </div>
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <a href="../" class="item index on">首页</a>
+        <a target="_blank" href="../phoneshop/phoneshop" class="item">手机商城</a>
+        <a target="_blank" href="../heikeji/heikeji" class="item">黑科技</a>
+        <a target="_blank" href="../message/message" class="item">资讯评测</a>
+    </div>
+</div>
+<div class="clear aside" id="aside" STYLE="height:40px;position:fixed;margin-top:700px;">
+    <div class="toolbar" id="toolbar">
+        <a href="javascript:void(0);" class="return-top" id="returnTop">TOP ↑</a>
+    </div>
+</div>
+<script type="text/javascript" src="__JS__/jquery-1.7.2.js.下载"></script>
+<script type="text/javascript" src="__JS__/jquery.cookies.2.2.0.min.js.下载"></script>
+<script type="text/javascript" src="__JS__/header.js.下载"></script>
+
+    <script>
+
+
+        var oH = $(window).height();
+        $(".wrap-hyhqsuc").height(oH);
+        $(".hcolsebtn").click(function () {
+            $(".wrap-hyhqsuc").css({ display: "none" })
+        })
+
+        var img_pc = 'https://img.dixintong.com';
+        var cookieDomain = ".dixintong.com";
+        $(document).on('click', '.del-comp-item', function () {
+            var pid = $(this).data('pid');
+            cookieCompare(pid, 2, 4);
+            getCompareProduct();
+        });
+
+        $(function () {
+            if (!$.cookies) $.cookies = jaaulde.utils.cookies;
+            var cookievalues = $.cookies.get('product_compare');
+            if (cookievalues) {
+                getCompareProduct();
+            } else {
+                $('#pop-compare').hide();
+            }
+            $('.del-items').on('click', function () {
+                if (!$.cookies) $.cookies = jaaulde.utils.cookies;
+                $.cookies.set('product_compare', null, { domain: cookieDomain });
+                $('#pop-compare').hide();
+            });
+            $('.hide-me').on('click', function () {
+                $('#pop-compare').hide();
+            });
+            $('.duibi').on('click', function () {
+                var pid = $(this).data('pid');
+                cookieCompare(pid, 1, 4);
+                getCompareProduct();
+            });
+        })
+    </script>
+
+    <!-- 购买选择 -->
+    <div class="detail-pro-box content-box">
+        <div class="pro-box-title clear" style="position: relative;">
+            <div style="float: left;">
+                <h3 style="margin-left: 10px;">
+                    {$name}
+                    {if !empty($ram)}
+                        {$ram} GB
+                    {/if}
+                    {$color}
+                </h3>
+            </div>
+        </div>
+
+        <div class="buyBox clear">
+            <!-- 左侧大小图查看 -->
+            <div class="pro-img fl" style="height: 597px; position: relative;">
+                <img style="position: absolute; right: 5px; top: 0px; z-index: 2; display:none" src="__IMG__/saved_resource">
+                <div class="sy-time" style="display:none">
+                    <p id="divdown1" style="width: 200px"></p>
+                </div>
+                <div class="big-show clear" style="position: relative;">
+
+                    <img style="position: absolute; width: 75px; height: 75px; right: 5px; top: 291px; z-index: 2;" src="__IMG__/tag1.png">
+                    
+                    <a href="javascript:;" class="on">
+                        <img src="__IMG__/{$picture}" alt="">
+                    </a>
+                </div>
+
+                <div class="small-show">
+                    <ul class="clear">
+                        <li class="hover">
+                            <a href="javascript:;">
+                                <img src="__IMG__/{$picture}" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="focus-product-box clear">
+
+                    <div class="fl bdsharebuttonbox clear" id="bdShareDiv" data-tag="share_1">
+                        <a class="bds_mshare fl" data-cmd="mshare" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_weixin fl" data-cmd="weixin" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_qzone fl" data-cmd="qzone" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_tsina fl" data-cmd="tsina" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_baidu fl" data-cmd="baidu" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_renren fl" data-cmd="renren" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_tqq fl" data-cmd="tqq" href="javascript:;" style="border: none;"></a>
+                        <a class="bds_more fl" data-cmd="more" id="amore" href="javascript:;" style="border: none;"></a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 右侧价格，选择机型，评分 -->
+            <div class="right-box fl">
+                <input type="hidden" id="dic" value="288">
+                <input type="hidden" id="dip" value="4484">
+                <input type="hidden" id="dipb" value="2528">
+                <input type="hidden" id="diff" value="sub">
+                <input type="hidden" id="isFlashSale" value="False">
+                <div class="clear" style="width: 840px;">
+                    <!--  中间价格，选择机型 -->
+                    <form action="../phoneinfo/lijigoumai" method="post">
+                    <div class="pro-price fl">
+                        <div class="pro-pricetop" style="margin-left: -1px; border-right: none; border-bottom: none; background: #fff;">
+                            <div class="priceAndService" style="position: relative;">
+                                <div class="clear de-price">
+                                    <p class="label">促销价</p>
+                                    <div class="detail clear">
+                                        <div class="clear row" style="width: 552px;">
+                                            <p class="price">￥{$money-$dazhe}</p>
+
+                                            <p class="tag" style="display:block">
+                                                直降{$dazhe}.00
+                                            </p>
+                                            <p class="info" style="margin-right: 8px; margin-left: 8px; color: #fff; display:block">市场价:<span> {$money}.00</span></p>
+                                            {if !empty($Think.session.username)}
+                                            {if $isguanzhu==0}
+                                            <a href="../guanzhu/addguanzhu?id={$gid}"><p class="info" style="font-size: 15px;margin-left:90px;margin-top:-5px;color:white;">❤关注收藏</p></a>
+                                            {else}
+                                            <a href="../guanzhu/shanguanzhu?id={$gid}"><p class="info" style="font-size: 15px;margin-left:90px;margin-top:-5px;color:white;">💔取消收藏</p></a>
+                                            {/if}
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="we-support clear" style="background: #fafafa; width: 635px; margin-top: 0;">
+                                    <h3 class="fl" style="width: 48px; height: 34px; color: #464646; padding-left: 16px; margin-right: 20px; float: left;">购物保障</h3>
+                                    <ul class="clear" style="height: 29px; width: 550px; float: left; padding-top: 5px;">
+                                        <li class="fl" style="display:block">
+                                            <s>邮</s>
+                                            <span>免邮费</span>
+                                            <p>GoPhone会员购买商品免运费</p>
+                                        </li>
+                                        <li class="fl">
+                                            <s>售</s>
+                                            <span>售后服务</span>
+                                            <p>尊享GoPhone全国3000家门店售后服务</p>
+                                        </li>
+
+                                        <li class="fl">
+                                            <s>票</s>
+                                            <span>货票同行</span>
+                                            <p>支持发票随商品一同送达</p>
+                                        </li>
+
+                                        <li class="fl">
+                                            <s>正</s>
+                                            <span>正品保证</span>
+                                            <p>GoPhone商城向您保证所售商品均为正品行货</p>
+                                        </li>
+
+                                        <li class="fl">
+                                            <s>保</s>
+                                            <span>全国联保</span>
+                                            <p>凭质保证书及GoPhone商城发票，可享受全国联保服务</p>
+                                        </li>
+                                        <li class="fl" style="display:block; margin-right: 0;">
+                                            <s>七</s>
+                                            <span>七天闪电退换</span>
+                                            <p>GoPhone会员享受7天内任何不满意闪电退换机</p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <!-- 发货地区，门店服务,我们支持，我们承诺 -->
+                            <div class="p-page-area">
+                                <ul>
+
+                                    <li>
+                                        <div>
+                                            <span style="width: 49px; margin-right: 18px;">发货时间</span>
+                                            当天16：00前下单 18：00后发货，16：00后下单第二天发货（部分商品可能会有延迟）<br>
+                                        </div>
+                                        <div style="margin-top: 5px;"><span style="width: 49px; margin-right: 18px;">到货时间</span> 预计2-3天（新疆、西藏、港澳台等地区除外）</div>
+                                    </li>
+                                    <li class="clear">
+                                        <h3 class="fl" style="width: 49px; margin-right: 18px;">心&nbsp;&nbsp;服&nbsp;&nbsp;务</h3>
+                                        <div class="fl">
+                                            <a target="_blank" href="https://www.dixintong.com/html/o2o/index.html" class="cl94" style="color: #585858;">闪电退换、返店交通补助、服务投诉奖励</a>
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 颜色、内存、制式选择，碎屏险 -->
+                            <div class="p-color-memory">
+                                <ul>
+                                    <li class="cl-sel li-cur clear">
+                                        <h3 class="fl" style="margin-right: 20px;">选择颜色</h3>
+                                        <div class="fl clear a-color-b">
+                                            <span data-colorid="浅蓝色" class="color01 border-cur">{$color}</span>
+                                        </div>
+                                    </li>
+                                    {if !empty($ram)}
+                                    <li class="li-cur clear">
+                                        <h3 class="fl" style="margin-right: 20px;">选择容量</h3>
+                                        <div class="fl">
+                                            <span data-romid="64GB" data-ram="4GB" class="rom01 border-cur">{$ram}</span>
+                                        </div>
+                                    </li>
+                                    {/if}
+
+                                    <li class="clear new-buy">
+                                        <p class="label" style="margin-right: 8px;">购买数量：</p>
+                                        <input type="number" name="num" style="background-color:lightblue;height:20px;width:40px;" id="number" min = 1 value="1"> 部
+                                        <input type="hidden" name="gid" value="{$gid}">
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('.fenqinum').on('click', function () {
+                                    $("span[class*='fenqinum']").removeClass('border-cur');
+                                    $(this).toggleClass('border-cur');
+                                })
+                                $('.fenqinumjd').on('click', function () {
+                                    $("span[class*='fenqinum']").removeClass('border-cur');
+                                    $(this).toggleClass('border-cur');
+                                })
+                                $('.fenqinumjs').on('click', function () {
+                                    $("span[class*='fenqinum']").removeClass('border-cur');
+                                    $(this).toggleClass('border-cur');
+                                })
+                                $('.fenqinumgf').on('click', function () {
+                                    $("span[class*='fenqinum']").removeClass('border-cur');
+                                    $(this).toggleClass('border-cur');
+                                })
+                                $('.fenqinumgf').on('mouseover',function(){
+                                    $("#rx-charge-gf").show();
+
+
+                                    var x = countLeft($(this),$(this).parent());//滑过的div距父元素左边的距离
+                                    var oW = $(this).width();//当前滑过元素的宽度
+                                    var oFeeW = $("#rx-charge-gf").width(); //展示手续费盒子的宽度
+                                    var oLeft = x +(oW-oFeeW)/2;
+                                    $("#rx-charge-gf").css({
+                                        "left":oLeft
+                                    })
+
+
+                                });
+                                $('.fenqinumgf').on('mouseleave',function(){
+                                    $("#rx-charge-gf").hide();
+
+                                });
+                                $('.fenqinumhb').on('click', function () {
+                                    $("span[class*='fenqinum']").removeClass('border-cur');
+                                    $(this).toggleClass('border-cur');
+                                })
+                                $('.fenqinumhb').on('mouseover',function(){
+                                    $("#rx-charge-hb").show();
+
+
+                                    var x = countLeft($(this),$(this).parent());//滑过的div距父元素左边的距离
+                                    var oW = $(this).width();//当前滑过元素的宽度
+                                    var oFeeW = $("#rx-charge-hb").width(); //展示手续费盒子的宽度
+                                    var oLeft = x +(oW-oFeeW)/2;
+                                    $("#rx-charge-hb").css({
+                                        "left":oLeft
+                                    })
+
+
+                                });
+                                $('.fenqinumhb').on('mouseleave',function(){
+                                    $("#rx-charge-hb").hide();
+
+                                });
+                            })
+                            //子元素距父元素左边的距离
+                            function countLeft(el,parentEl){
+                                return el.offset().left-parentEl.offset().left;
+                            }
+                        </script>
+
+                        <div class="shop-cart-buy clear" style="width: 626px;">
+                            <div class="shop-buy-left fl clear">
+
+                                <div class="buy-btn fl" style="position: relative;" id="divqsga">
+                                    {if !empty($Think.session.username)}
+                                        <input type="submit" value="立即购买" name="mai" style="width:100px;height:40px;background-color: red;color:white;">
+                                    {else}
+                                        <a href="../phoneinfo/islogin" class="payzjgm" data-sid="0" data-ptype="s" data-companyid="288" data-access="true" data-productid="4484" style="margin-top:0px;">立即购买</a>
+                                    {/if}
+                                </div>
+
+                                <div class="buy-btn2 fl">
+                                    <input type="submit" value="加入购物车" name="mai" style="margin-left:20px;width:100px;height:40px;background-color:orange;color:white;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.buy-fenqi').on('click', function () {
+                                $('.f-position').show();
+                            })
+
+                            $(".a-detail").on("click", function () {
+                                $(".format-detail li:eq(5)").trigger("click");
+                                var htop = $(".detail-information").offset().top;
+                                $(".format-detail li").eq(6).css("background-color", "#f94608").siblings().css("background-color", "#343434");
+                                $(".infor-leftBox>.same-content").eq(0).hide();
+                                $(".infor-leftBox>.same-content").eq(1).hide();
+                                $(".infor-leftBox>.same-content").eq(2).hide();
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                                $(".infor-leftBox>.same-content").eq(6).show();
+                                $(document).scrollTop(htop);
+                            })
+                        })
+                    </script>
+                    <!-- 右侧评分 -->
+                    <div class="pro-score fr" style="height: 609px;">
+                        <div class="newkou">
+                            <div class="updownbox clear">
+                                <a href="javascript:void(0);" class="koudown"></a>
+                                <a href="javascript:void(0);" class="kouup"></a>
+                            </div>
+                            <h2 class="koutit">口碑排行</h2>
+                            <div class="koulistbox" style="height: 502px; overflow: hidden;">
+                                <ul class="koulist">
+                                    {if !empty($hot5info)}
+                                    {foreach $hot5info as $v}
+                                    <li>
+                                        <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}">
+                                            <p class="goods-tit">{$v.name} {$v.ram}GB {$v.color} 4G全网通</p>
+                                            <div class="goods-imgbox">
+                                                <img src="__IMG__/{$v.picture}" alt="">
+                                            </div>
+                                        </a>
+                                        <p class="goods-price">￥{$v.money}.00</p>
+                                        <p class="goods-pingfen">用户评分：5分<span class="up"></span></p>
+                                        <div class="starbox">
+                                            <img src="__IMG__/hlightstar.png" alt="Alternate Text">
+                                            <img src="__IMG__/hlightstar.png" alt="Alternate Text">
+                                            <img src="__IMG__/hlightstar.png" alt="Alternate Text">
+                                            <img src="__IMG__/hlightstar.png" alt="Alternate Text">
+                                            <img src="__IMG__/hlightstar.png" alt="Alternate Text">
+                                        </div>
+                                    </li>
+                                    {/foreach}
+                                    {/if}
+                                </ul>
+                            </div>
+
+                        </div>
+                        <script>
+                            var kougoodsi = 0;
+                            $(".koudown").click(function () {
+
+                                ++kougoodsi;
+
+                                if (kougoodsi == 2) { kougoodsi = 1 }
+                                $(".koulist").stop(true, true).animate({ marginTop: -kougoodsi * 516 });
+                            })
+                            $(".kouup").click(function () {
+
+                                --kougoodsi;
+                                if (kougoodsi == -1) { kougoodsi = 0 }
+                                $(".koulist").stop(true, true).animate({ marginTop: -kougoodsi * 516 });
+                            })
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+    <!--新增的悬浮的菜单栏-->
+    <div class="hfloatnavbox" style="width: 100%; background: #fff; border-top: 2px solid #3f3f3f; border-bottom: 1px solid #ddd;">
+        <div class="infor-header clear" id="newinfoheader" style="width: 1210px; margin: 0 auto; padding-right: 0px;">
+            <div class="format-detail fl">
+                <ul class="clear" style="margin-bottom: -1px; margin-left: 0px;">
+                    <li class="fl active">
+                        <a href="javascript:">商品详情</a>
+                    </li>
+                    <li class="fl">
+                        <a href="javascript:" id="a2">规格与包装</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="a-btn fr">
+
+                <a href="" class="payzjgm" data-ptype="s" data-companyid="288" data-access="true" data-productid="4484">立即购买
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <!--包含下边产品详情的div-->
+    <div style="width: 100%; background: #f6f6f6;">
+        <!-- 规格参数，服务详情，用户评价，图文介绍 -->
+
+        <div class="detail-information content-box clear">
+            <div class="infor-leftBox fl">
+                <div class="infor-header clear">
+                    <div class="format-detail fl">
+                        <ul class="clear" style="margin-left: -1px;">
+                            <li class="fl active">
+                                <a href="javascript:">商品详情</a>
+                            </li>
+                            <li class="fl">
+                                <a href="javascript:" id="aggcs">规格与包装</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="a-btn fr">
+
+                        <a href="javascript:;" class="payzjgm" data-ptype="s" data-companyid="288" data-access="true" data-productid="4484">立即购买
+                        </a>
+
+                    </div>
+                </div>
+                <!-- 规格参数 -->
+                <div class="same-content visible-content">
+                    <div style="border-top: 1px solid #ddd; padding: 15px;">
+                        <div class="guige-detail same-content visible-content">
+                            
+                            <!-- 标题2主要参数开始 -->
+                            <h3 class="htit clear">主要参数 
+                            <a href="https://shop.dixintong.com/products-4484-288.html###" style="display: none;">详细参数 &gt;</a>
+                            </h3>
+                            <!-- 标题2主要参数结束 -->
+                            <div class="hcanshubox clear">
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu1.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">主屏尺寸：{$size}</dd>
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu2.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">CPU型号：以官网为准</dd>
+                                    <dd class="fr" style="display: block; width: 168px; height: 24px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">CPU频率：以官网为准</dd>
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu3.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr" style="display: block; width: 168px; height: 24px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ROM容量：{$ram}GB</dd>
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu4.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">电池容量：{$cell}毫安</dd>
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu5.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">网络类型：4G全网通</dd>
+
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu6.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">后置摄像头：{$camera}万像素 </dd>
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu7.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">机身颜色：{$color} </dd>
+                                </dl>
+                                <dl class="hcanshudl clear">
+                                    <dt class="fl">
+                                        <img src="__IMG__/hcanshu8.png" alt="Alternate Text">
+                                    </dt>
+                                    <dd class="fr hcanshudd1" style="display: block; width: 168px; height: 24px; padding-top: 6px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">感应器类型：红外遥控</dd>
+                                    <dd class="fr" style="display: block; width: 168px; height: 24px; line-height: 24px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">SIM卡类型：</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 图文介绍 -->
+                    <h3 class="htit clear" style="margin: 0 auto;">图文介绍  
+                    </h3>
+                    <div class="introduce-image" id="div1" style="width: 903px; margin: 0 auto; background: #fff; border: 1px solid #eee;">
+                        <p style="TEXT-ALIGN: center">
+                            {if !empty($idphoto)}
+                            {foreach $idphoto as $v}
+                                <img src="__IMG__/{$v.url}" title="详情图.jpg" alt="详情图.jpg">
+                            {/foreach}
+                            {/if}
+                        </p><br/><hr/>
+                        <form action="../phoneinfo/pinglun" method="post" style="border:0px solid red;margin-left: 40px;">
+                            <p style="font-size: 25px;">
+                                评论
+                                {if empty($Think.session.username)}
+                                <a href="../user/login" style="font-size:20px;color: blue;margin-left: 20px;">登陆 </a>/
+                                <a href="../user/Register" style="font-size:20px;color: blue;">注册</a>
+                                {/if}
+                            </p>
+                            <input type="hidden" name="gid" value="{$gid}">
+                            <textarea style="border: 1px solid #cccccc;width:500px;height:100px;" name="pinglun"></textarea>
+                            <input type="submit" style="width:100px;height:40px;background-color: red;color:white
+                            ;margin-left: 400px;">
+                        </form>
+                        <p style="font-size: 20px;color: blue;margin-left: 40px;">用户评价:</p><br/>
+                            {if !empty($pl)}
+                                {foreach $pl as $v}
+                                    <div style="width:700px;border:1px solid white;float:left;margin-left: 20px;">
+                                        <img src="{$v.photo}" style="width:50px;float:left;">
+                                        <div style="float:left;;margin-left:20px;color:blue;font-size:20px;">
+                                            <a>{$v.username}</a>
+                                            Says:
+                                        </div>
+                                        <div style="font-size:15px;width:200px;border:1px solid white;margin-left:65px"><br>
+                                            <div style="border:1px solid white;float:left;">{$v.create_time|date="Y-m-d h:i:s",###}</div></div><br><br>
+                                        <div style="font-size:15px;width:600px;float:right;border:1px solid white;margin-right:30px;"><br>
+                                            <p>{$v.pinglun}</p>
+                                        </div><br><br><br><br><br>
+                                    </div>
+                                {/foreach}
+                            {else}
+                                <b style="margin-left: 50px;">暂无评论</b>
+                            {/if}
+                        <div style="width:410px;margin:0 auto;" class="page">{$page}</div>
+                    </div>
+                    <!-- 图文介绍代码 -->
+                    <script type="text/ecmascript">
+                        var indexi = 1;
+                        var indexj = 1;
+                        $(function () {
+                            if (indexj == 1) {
+                                var id = '2528';
+                                $.get("/Json/getggjjHandler.ashx?op=getspjj&id=" + id, function (rel) {
+                                    $('#div1').html('');
+                                    $('#div1').html(rel);
+                                });
+                            }
+                        })
+                    </script>
+                </div>
+                <div class="pro-introduce same-content">
+                    <div class="clear detail-para" style="border: 1px solid #eee; border-bottom: none;">
+                        <div style="background: #fbfbfb; border-bottom: 1px solid #eee;" class="clear">
+                            <p class="fl" style="font-size: 14px; padding: 10px 0px 0px 15px; width: 120px;">基本参数</p>
+                        </div>
+                        <div style="background: #fbfbfb; border-bottom: 1px solid #eee;" class="clear">
+                            <p class="fl" style="font-size: 14px; padding: 10px 0px 0px 15px; width: 120px;">屏幕</p>
+                            <div class="fl" style="background: #fff; border-left: 1px solid #eee; padding: 10px 15px 0px 15px;">
+                                
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">主屏尺寸</p>
+                                    <p class="fl" style="width: 637px;">{$size}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: #fbfbfb; border-bottom: 1px solid #eee;" class="clear">
+                            <p class="fl" style="font-size: 14px; padding: 10px 0px 0px 15px; width: 120px;">硬件</p>
+                            <div class="fl" style="background: #fff; border-left: 1px solid #eee; padding: 10px 15px 0px 15px;">
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">操作系统</p>
+                                    <p class="fl" style="width: 637px;">基于{$system}</p>
+                                </div>
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">核心数</p>
+                                    <p class="fl" style="width: 637px;">{$nuclear}核</p>
+                                </div>
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">ROM容量</p>
+                                    <p class="fl" style="width: 637px;">{$ram}</p>
+                                </div>
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">电池类型</p>
+                                    <p class="fl" style="width: 637px;">不可卸载</p>
+                                </div>
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">电池容量</p>
+                                    <p class="fl" style="width: 637px;">{$cell}毫安</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div style="background: #fbfbfb; border-bottom: 1px solid #eee;" class="clear">
+                            <p class="fl" style="font-size: 14px; padding: 10px 0px 0px 15px; width: 120px;">摄像头</p>
+                            <div class="fl" style="background: #fff; border-left: 1px solid #eee; padding: 10px 15px 0px 15px;">
+                                
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">后置摄像头</p>
+                                    <p class="fl" style="width: 637px;">{$camera}万像素</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: #fbfbfb; border-bottom: 1px solid #eee;" class="clear">
+                            <p class="fl" style="font-size: 14px; padding: 10px 0px 0px 15px; width: 120px;">外观</p>
+                            <div class="fl" style="background: #fff; border-left: 1px solid #eee; padding: 10px 15px 0px 15px;">
+                                
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">机身颜色</p>
+                                    <p class="fl" style="width: 637px;">{$color}</p>
+                                </div>
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">手机尺寸</p>
+                                </div>
+                                <div class="clear" style="padding-bottom: 10px;">
+                                    <p class="fl" style="width: 135px;">操作类型</p>
+                                    <p class="fl" style="width: 637px;">基于{$system}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+                <script type="text/ecmascript">
+                    $(function () {
+                        //点击导航栏事件
+                        $(".format-detail li").click(function (event) {
+                            var _index = $(this).index();
+                            $(".format-detail li").eq(_index).addClass("active").siblings().removeClass("active");
+                            $(".infor-leftBox .format-detail li").eq(_index).addClass("active").siblings().removeClass("active");
+                            $(".infor-leftBox>.same-content").eq($(this).index()).addClass("visible-content").siblings().removeClass("visible-content");
+                            if ($(this).index() == 1) {
+                                $(".infor-leftBox>.same-content").eq(0).hide();
+                                $(".infor-leftBox>.same-content").eq(1).show();
+                                $(".infor-leftBox>.same-content").eq(2).hide();
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                            } else if ($(this).index() == 0) {
+                                $(".infor-leftBox>.same-content").eq(0).show();
+                                $(".infor-leftBox>.same-content").eq(3).show();
+                                $(".infor-leftBox>.same-content").eq(4).show();
+                                $(".infor-leftBox>.same-content").eq(5).show();
+                            } else if ($(this).index() == 3) {
+                                $(".infor-leftBox>.same-content").eq(3).show();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                            } else if ($(this).index() == 4) {
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).show();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                            } else if ($(this).index() == 5) {
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).show();
+                            }
+                            else if ($(this).index() == 6) {
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                            }
+                            else if ($(this).index() == 7) {
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                            }
+                            else if ($(this).index() == 2) {
+                                $(".infor-leftBox>.same-content").eq(0).hide();
+                                $(".infor-leftBox>.same-content").eq(1).hide();
+                                $(".infor-leftBox>.same-content").eq(2).show();
+                                $(".infor-leftBox>.same-content").eq(3).hide();
+                                $(".infor-leftBox>.same-content").eq(4).hide();
+                                $(".infor-leftBox>.same-content").eq(5).hide();
+                            }
+                        });
+
+
+                        $(".infor-leftBox>.same-content").eq(6).show();
+                        //评论类别点击事件
+                        $('.comment-type a').on('click', function () {
+                            var type = $(this).data('type');
+                            var count = $(this).data('count');
+                            var pageIndex = $(this).data("currentindex");
+                            if (type) {
+                                if (type != $('.usercomment').data('type')) {
+                                    $('.usercomment').data('type', type);
+                                    $('.usercomment').data('first', 1);
+                                    getComment(type, pageIndex);
+
+                                    fenye(count);
+                                }
+                            }
+                        })
+                        $('#zixunhuifu').on('click', function () {
+                            var txt = $('#zixunneirong').val();
+                            var id = '4484';
+                            if (txt.length > 10 && txt.length < 300 && txt != "") {
+                                $.get("/Json/productHandler.ashx?op=addwd&wd=" + escape(txt) + "&id=" + id, function (rel) {
+                                    if (rel == "1") {
+                                        $('#zixunneirong').val('');
+                                        alert("提交成功!");
+                                    }
+                                    else {
+                                        alert("提交失败!");
+                                    }
+                                });
+                            }
+                            else {
+                                alert('请填写内容,10-300字!');
+                            }
+                        })
+                        $('#chakangengduo').on('click', function () {
+                            alert('没有更多了!');
+                        })
+                        //服务详情
+                        $(".x-img03 a").on("click", function () {
+                            $(".provision-box").toggle();
+                        })
+                        $(".format-detail li").on("click", function () {
+                            var htop = $(".detail-information").offset().top;
+                            //$(this).addClass("active").siblings().removeClass("active");
+                            //$(this).css("background-color", "#f94608").siblings().css("background-color", "#343434");
+                            $(document).scrollTop(htop);
+                        })
+
+                        //用户评价,好评,中评,差评
+                        $(".comment-type>a").on("click", function () {
+                            $(this).css("color", "#f94608").siblings().css("color", "#343434");
+                        })
+                        //用户评价点击事件
+                        var iscfjz = 0;
+
+                        $('.usercomment').on('click', function () {
+
+                            $('.comment-list').show();
+                            if (iscfjz == 0) {
+                                var first = $(this).data("first");
+                                var type = $(this).data("type");
+                                var pageIndex = $(this).data("currentindex");
+                                if (first) {
+                                    getComment(type, pageIndex);
+                                    var count = '72';
+                                    fenye(count);
+                                }
+                                iscfjz = 1;
+                            }
+                        })
+                        //评价分页事件
+                        var fenye = function (totalpz) {
+                            var pageIndex = 0;     //页面索引初始值
+                            var pageindexpc = 0;
+                            var pageSize = 5;
+                            if (totalpz <= 0) {
+                                $('#pc').html('');
+                                $('#pc').append("<span style='font-size:14px;margin:4px 6px' >暂无数据</span>");
+                                $('#Paginationpz').html('');
+                            }
+                            else {
+                                $('#pc').html('');
+                                $("#Paginationpz").pagination(totalpz, {
+                                    callback: PageCallbackpz,
+                                    prev_text: '上一页',       //上一页按钮里text
+                                    next_text: '下一页',       //下一页按钮里text
+                                    items_per_page: pageSize,  //显示条数
+                                    num_display_entries: 4,
+                                    current_page: pageindexpc,
+                                    num_edge_entries: 3         //两侧显示的首尾分页的条目数（结束展示数目）
+                                });
+                            }
+                        }
+                        //翻页调用
+                        function PageCallbackpz(index, jq) {
+                            var type = $('.usercomment').data("type");
+                            $("html,body").scrollTop(1052);
+                            getComment(type, index + 1);
+                        }
+                    })
+                    $(document).on("click", ".praise-help", function () {
+                        var id = $(this).data("id");
+                        var spid = "#span" + id;
+                        $.get("/Json/productHandler.ashx?op=adddz&id=" + id, function (rel) {
+                            if (rel == "0") {
+                                $(spid).html(parseInt($(spid).html()) + 1);
+                            }
+                            else if (rel == "1") {
+                                alert("点赞失败!");
+                            }
+                            else if (rel == "2") {
+                                alert("每位用户只能点赞一次!");
+                            }
+                        });
+                    });
+
+                    $(document).on('click', '.addgethuifu', function () {
+                        alert('没有更多了!');
+                        $(this).hide();
+                    })
+                    var tmpid = 0;
+                    //获取数据
+                    var getComment = function (type, pageIndex) {
+                        var id = '2528';
+                        $.ajax({
+                            type: "GET",
+                            url: "/Json/productHandler.ashx?op=getyhpj&type=" + type + "&prodbid=" + id + "&pageIndex=" + pageIndex,
+                            async: true,
+                            success: function (data) {
+                                if (data) {
+                                    data = $.parseJSON(data);
+                                }
+                                $('.usercomment').data('first', 0);
+                                $('.comment-list').html('');
+                                if (data) {
+
+                                    for (var i = 0; i < data.length; i++) {
+                                        var imgpc = (data[i].UserHeadImg.substring(0, 4) == 'http') ? "" : "https://img.dixintong.com/";
+                                        var temp = '<div class="user-score-details"><div class="customer-name clear"> <div class="fl"><img src="' + imgpc + data[i].UserHeadImg + '" alt="" /></div><div class="fl"><p>' + data[i].UserName + '</p><p>' + data[i].UpdateTime + '发布</p></div></div><div class="comment-xing">';
+                                        var score = data[i].UserScore / 2;
+                                        for (var j = 0; j < 5; j++) {
+                                            if (score > i) {
+                                                temp += '<s class="s-xing"></s>';
+                                            } else {
+                                                temp += '<s></s>';
+                                            }
+                                        }
+                                        temp += '</div><div class="comment-del"><h3>' + data[i].Labs + '</h3><div class="del-virtue clear"><span class="fl"></span><p class="fl">' + data[i].UserComments + '</p></div>';
+                                        if (data[i].Img1 != '') {
+                                            temp += '<div class="user-product-images clear"><a class="fl" target="_blank" href="https://img.dixintong.com' + data[i].Img1 + '"><img src="https://img.dixintong.com' + data[i].Img1 + '" alt="" /></a>';
+                                            if (data[i].Img2 != '') {
+                                                temp += '<a class="fl" target="_blank" href="https://img.dixintong.com' + data[i].Img2 + '"><img src="https://img.dixintong.com' + data[i].Img2 + '" alt="" /></a>';
+                                            }
+                                            if (data[i].Img3 != '') {
+                                                temp += '<a class="fl" target="_blank" href="https://img.dixintong.com' + data[i].Img3 + '"><img src="https://img.dixintong.com' + data[i].Img3 + '" alt="" /></a>';
+                                            }
+                                            temp += '</div>';
+                                        }
+                                        var dataChildlength = 0;
+                                        if (data[i].childList) {
+                                            dataChildlength = data[i].childList.length;
+                                        }
+                                        temp += '<div class="praise"><div class="sn-replayBox"><a href="javascript:;" data-id=' + data[i].Id + ' class="praise-reply">回复(' + dataChildlength + ')</a><div class="inner"><textarea class="reply-input" name="" id="txt' + data[i].Id + '" placeholder="1-30个字..."></textarea><div class="btnbox clear"><input type="button" class="reply-submit tijiaohuifu" data-id="' + data.Id + '" value="提交"></div></div></div>&nbsp;&nbsp;有帮助(<span id="span' + data[i].Id + '" class="praise-help" data-id=' + data[i].Id + '>' + data[i].PraiseCount + '</span>)<span>' + '' + '</span></div></div></div>';
+
+                                        temp += '<div class="k-msg-box msg-huifu" id="divhuifu' + data[i].Id + '" ><ul id="ul' + data[i].Id + '"></ul><a href="javascript:" class="addgethuifu" data-pageindex="1" data-id="' + data[i].Id + '" id="a' + data[i].Id + '"></a></div>';
+                                        //加载更多用户回复
+                                        $('.comment-list').append(temp);
+
+                                        if (data[i].childList) {
+                                            var divhuifuID = "#divhuifu" + data[i].Id;
+                                            $(divhuifuID).show();
+                                            var idul = "#ul" + data[i].Id;
+                                            $(idul).empty();
+
+                                            for (var j = 0; j < data[i].childList.length; j++) {
+                                                var tmpstr = '<li class="k-msg clear"><div style="margin-left: 19px;" class="k-name fl"><a href="javascript:;" class="fl" style="width: 115px;">' + data[i].childList[j].UserName + '：</a></div><div class="k-text fl clear"><p class="fl">' + data[i].childList[j].UserComments + '<p><span class="fr">' + data[i].childList[j].UpdateTime + '</span></div></li>';
+                                                $(idul).append(tmpstr);
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        })
+                    };
+                </script>
+
+                <script>
+                    $('#moreall').on('click',function(){
+                        
+                        $('#infoul li').each(function(){
+                            $(this).show();
+                        })
+                    })
+                </script>
+
+            </div>
+            <!-- 销售排行，最终购买，浏览记录 -->
+            <div class="infor-rightBox fr">
+
+                <!--新加的相关资讯-->
+                
+                <div class="relativeinfo">
+                    <h3 class="brandtit clear">
+                        相关资讯
+                    </h3>
+                    <div class="hd clear">
+                        <a class="prev"></a>
+                        <ul>
+                            <li class=""><a></a></li>
+                            <li class=""><a></a></li>
+                            <li class=""><a></a></li><li class="on"><a></a></li></ul>
+                        <a class="next"></a>
+                    </div>
+                    <div class="bd">
+                        <ul>
+                            {if !empty($zi4xun)}
+                            {foreach $zi4xun as $v}
+                            <li style="display: none;">
+                                <a target="_blank" href="../message/zixun?id={$v.id}">
+                                    <img src="__IMG__/{$v.photo}" alt="Alternate Text" style="width: 243px; height: 124px;">
+                                    <p class="infodesc">{$v.title}</p>
+                                </a>
+                            </li>
+                            {/foreach}
+                            {/if}
+                        </ul>
+                    </div>
+                </div>
+
+                <script>
+                    //相关资讯的轮播
+
+                </script>
+
+                <!-- 热销推荐 -->
+                <div class="hotbox" style="margin-bottom: 12px;">
+                    <h3 class="hhottitle">热销推荐
+                    </h3>
+                    <ul class="hotlist">
+                        {if !empty($hot3info)}
+                        {foreach $hot3info as $v}
+                        <li>
+                            <a href="../phoneinfo/phoneinfo?id={$v.gid}" target="_blank">
+                                <div class="imgbox">
+                                    <img src="__IMG__/{$v.picture}" alt="">
+                                </div>
+                                <p class="goodsinfo">
+                                    {$v.name} {$v.ram}GB 存储 {$v.color} 4G全网通
+                                </p>
+                                <p class="goodsprice">
+                                    <span class="price fl">￥{$v.money}</span>
+                                    <span class="gobtn fr"></span>
+                                </p>
+                            </a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                </div>
+
+                <div class="detail-brand-2016" style="border: 1px solid #ddd; border-top: 3px solid #3f3f3f;">
+                    <h2 class="title" style="display: none;">品牌排行</h2>
+                    <h3 class="brandtit clear">品牌热度<span>TOP5</span>
+                        <a target="_blank" href="https://shop.dixintong.com/brand/index.html" style="float: right; color: #cfcfcf; font-size: 12px; font-weight: normal;"></a>
+                    </h3>
+                    <!--新改的品牌列表-->
+                    <ul class="brandlist">
+                        {if !empty($brand5)}
+                        {foreach $brand5 as $v}
+                        <li class="clear">
+                            <a target="_blank" href="../sou/sou?id={$v.pid}" class="brandimg">
+                                <img src="__IMG__/{$v.photo}" class="brandimg" alt="Alternate Text">
+                            </a>
+                            <p class="brandname">
+                                <a target="_blank" href="../sou/sou?id={$v.pid}">{$v.title}</a>
+                            </p>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                </div>
+
+                <!--改动过的手机同品牌和同品牌排行-->
+                <div class="hphone-salebox">
+                    <h3 class="phone-tit">手机销量排行</h3>
+                    <div class="hchoose-type clear">
+                        <a href="javascript:;" class="active">同品牌</a>
+                    </div>
+                    <!--同品牌-->
+                    <ul class="hsameprice-list itemss">
+                        {if !empty($tongpai)}
+                        {foreach $tongpai as $v}
+                        <li>
+                            <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}" class="clear">
+                                <div class="imgbox">
+                                    <img src="__IMG__/{$v.picture}" alt="Alternate Text">
+                                </div>
+                                <div class="rightbox">
+                                    <p class="goods-desc">{$v.name} {$v.ram}GB {$v.color} 4G全网通</p>
+                                    <p class="goods-price">￥{$v.money}</p>
+                                </div>
+                            </a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<link href="__CSS__/basic(1).css" rel="stylesheet">
+<link href="__CSS__/footer.css" rel="stylesheet">
+<style type="text/css"> 
+.footer-top img{ cursor:pointer; }
+</style>
+<footer>
+    <div class="footer">
+        <div class="footer-warp">
+            <div class="footer-top clear">
+                <a href="http://www.dixintong.com/issue-1-3-10.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu01.jpg" width="256" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/issue-3-1-16.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu02.jpg" width="214" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/issue-4-1-19.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu03.jpg" width="205" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/html/xin/index.html" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu04.jpg" width="254" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/mdall.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu05.jpg" width="237" height="97" class="fl">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <center>
+            <a href="">本站仅为学习开发使用   备案号：京dsadd001</a>
+        </center>
+    </div>
+</footer>
+
+<link href="__CSS__/footer(1).css" rel="stylesheet">
+    <script>
+        $('#videoplayer').css('height', '450px');
+
+        $('#lijiyuding').on('click',function(){
+            var loginState = 'yes';
+            if(loginState=="no"){
+                location.href = 'https://user.dixintong.com/UserLogin/UserForgetPwd.aspx?backurl=https://shop.dixintong.com/products.aspx?par=4484&cid=288&sid=&contractFlag=';
+            }else{
+               
+                $.get('/Json/yudingHandler.ashx?productid=' + 4484 + "&prodbid=" + '2528' + "&cid=" + '288', function (rel) {
+                     
+                    alert(rel);
+                })
+            }
+        })
+
+
+        $('#arrivalReminder').on('click', function () {
+            $('.TipWrap').show();
+        })
+
+        $(".TipWrap .CloseBtn").on("click", function () {
+            $(".TipWrap").hide();
+        });
+
+        var isSpecial = "False" == "True"; // 判断是否特殊抢购商品
+            var verifySuccessed = false;
+            var shareUrl = "http://shop.dixintong.com/products-4484-288.html";
+        var shareDetailId = "0";
+        var productId = '4484';
+        var companyId = '288';
+        var userId = '1831896';
+        var contractFlag = '0';
+        var cookieDomain = '.dixintong.com';
+        var typeIndex = 0;
+        var sid1 = 0;
+
+        //是否显示回复
+        $(document).on('click', ".praise-reply", function () {
+            var loginState = 'yes';
+            if (loginState == 'no') {
+                typeIndex = 4;
+                $('.content2').show(); $('.ui-mask').show();
+            }
+            else {
+                $(this).next(".inner").toggle();
+            }
+
+        })
+        $(document).on('click', '.tijiaohuifu', function () {
+
+
+            var id = $(this).data("id");
+            if ($('#txt' + id).val() != "" && $('#txt' + id).val().length < 30) {
+
+                $.get("/Json/productHandler.ashx?op=addhuifu&huifu=" + $('#txt' + id).val() + "&id=" + id, function (rel) {
+                    $('#txt' + id).val('');
+
+
+                });
+            }
+            $(this).closest(".inner").hide();
+
+        })
+
+
+
+            $('#tijiao').on('click', function () {
+               
+                var kp = "0-0-0";//变量 卡 屏
+
+                var fenqi = 0;
+                $('.fenqinum').each(function () {
+                    if ($(this).hasClass('border-cur')) {
+                        fenqi = $(this).data('fenqi');
+                    }
+                })
+
+                var jdfenqi = 0;
+                $('.fenqinumjd').each(function () {
+                    if ($(this).hasClass('border-cur')) {
+                        jdfenqi = $(this).data('jdfenqi');
+                    }
+                })
+                var jsfenqi = 0; 
+                var fenqitype='';
+                var gffengqi211=0;
+                $('.fenqinumgf').each(function () {  
+                    if ($(this).hasClass('border-cur')) {
+                        gffengqi211 = $(this).data('gffenqi');
+                        fenqitype=$(this).data('fenqitype');
+                    }
+                })
+
+                var hbfengqi211=0;
+                $('.fenqinumhb').each(function () {  
+                    if ($(this).hasClass('border-cur')) {
+                        hbfengqi211 = $(this).data('hbfenqi');
+                        fenqitype=$(this).data('fenqitype');
+                    }
+                })
+
+                var phone = $('#phone').val();
+                var pword = $('#pword').val();
+                if (phone != "" && pword != "") {
+                    $.get("/Json/argHandler.ashx", { type: "automaticLoginRegister", phone: phone, pwd: pword }, function (data) {
+                         
+                        switch (data) { 
+                            case "1":
+                                var flag = 'False';
+                                if (typeIndex == 1) {
+                                    if (flag != 'True') {
+                                        window.location.href = "/order/OrderConfirm.aspx?op=payzjgm&companyId=288&productId=4484&storeid=" + $(this).data("sid") + "&count=" + $('#txtNum').val() + "&kp=" + kp + "&fenqi=" + fenqi + "&jdfenqi=" + jdfenqi+"&jsfenqi="+jsfenqi+"&gffenqi="+gffengqi211+"&hbfenqi="+hbfengqi211+"&sid="+0+"&fenqitype="+fenqitype;
+                                    }
+                                } else if (typeIndex == 2) {
+                                    if (flag != 'True') {
+                                        var url ="/order/OrderConfirm.aspx?op=payzjgm&companyId=288&productId=4484&storeid=" + $(this).data("sid") + "&count=" + $('#txtNum').val() + "&kp=" + kp + "&fenqi=" + fenqi + "&jdfenqi=" + jdfenqi+"&jsfenqi="+jsfenqi+"&gffenqi="+gffengqi211+"&hbfenqi="+hbfengqi211+"&sid="+0+"&fenqitype="+fenqitype;
+                                        window.location.href = url;
+                                    }
+                                } else if (typeIndex == 3) {
+
+                                    if (!$.cookies) $.cookies = jaaulde.utils.cookies;
+                                    if ($.cookies.get("yuyue")) {
+                                        $.cookies.set('yuyue', parseInt($.cookies.get('yuyue')) + 1, { hoursToLive: 24 });
+                                    }
+                                    else {
+                                        $.cookies.set('yuyue', 1, { hoursToLive: 24 });
+                                    }
+                                    var count = parseInt($.cookies.get('yuyue'));
+                                    if (count < 11) {
+                                        window.location.href = "/order/OrderConfirm.aspx?op=payzjgm&companyId=288&productId=4484&storeid=" + sid1 + "&count=" + $('#txtNum').val() + "&kp=" + kp + "&jdfenqi=" + jdfenqi + "&fenqi=" + fenqi;
+                                    } else {
+                                        alert('每天只能预约10次!');
+                                    }
+
+                                } else if (typeIndex == 4) {
+                                    location.reload();
+                                }
+                        break;
+                    default:
+                        alert(data);
+                        break;
+                }
+                    });
+        } else {
+            alert('必须填写用户名,密码!');
+        }
+            })
+
+
+            $('#guanbi').on('click', function () {
+                $('.content2').hide(); $('.ui-mask').hide();
+            })
+
+            $('#mendianziti').on('click', function () {
+                var kp = "0-0-0";//变量 卡 屏
+
+                var loginState = 'yes';
+                if (loginState == 'yes') {
+                    var flag = 'False';
+                    if (flag != 'True') {
+                        window.location.href = "/order/OrderConfirm.aspx?op=payzjgm&companyId=288&productId=4484&storeid=" + $(this).data("sid") + "&count=" + $('#txtNum').val() + "&kp=" + kp+"&sid="+0;
+                    }
+                }
+                else {
+                    typeIndex = 1;
+                    $('.content2').show(); $('.ui-mask').show();
+                }
+            })
+            $('.payzjgm').on('click', function () {
+                var kp = "0-0-0";//变量 卡 屏 
+
+                var fenqi = 0;
+                $('.fenqinum').each(function () {
+                    if ($(this).hasClass('border-cur')) {
+                        fenqi = $(this).data('fenqi');
+                    }
+                })
+
+                var fenqitype='';
+                var jdfenqi = 0;
+                $('.fenqinumjd').each(function () {
+                    if ($(this).hasClass('border-cur')) {
+                        jdfenqi = $(this).data('jdfenqi');
+                    }
+                })
+
+                var jsfenqi = 0;             
+
+                var gffenqi = 0;
+                $('.fenqinumgf').each(function () {
+                    if ($(this).hasClass('border-cur')) {
+                        gffenqi = $(this).data('gffenqi');
+                        fenqitype=$(this).data('fenqitype');
+                    }
+                })
+
+                var hbfenqi = 0;
+                $('.fenqinumhb').each(function () {
+                    if ($(this).hasClass('border-cur')) {
+                        hbfenqi = $(this).data('hbfenqi');
+                        fenqitype=$(this).data('fenqitype');
+                    }
+                })
+
+                var loginState = 'yes';
+                if (loginState == 'yes') {
+                    var flag = 'False';
+                    if (flag != 'True') {
+                        window.location.href = "/order/OrderConfirm.aspx?op=payzjgm&companyId=288&productId=4484&storeid=" + $(this).data("sid") + "&count=" + $('#txtNum').val() + "&kp=" + kp + "&fenqi=" + fenqi + "&jdfenqi=" + jdfenqi+"&jsfenqi=0&gffenqi="+gffenqi+"&hbfenqi="+hbfenqi+"&sid="+0+"&fenqitype="+fenqitype;
+                    }
+                }
+                else {
+                    typeIndex = 2;
+                    $('.content2').show(); $('.ui-mask').show();
+                }
+            })
+
+            var flag = 'True';
+            //if (flag != 'True') {
+            oDiv.mouseleave(function () {
+                $(this).css('display', 'none');
+                bOk = true;
+            });
+            $add.click(function () {
+                if (bOk) {
+                    oDiv.css('display', 'block');
+                    bOk = false;
+                } else {
+                    oDiv.css('display', 'none');
+                    bOk = true;
+                }
+            });
+            $('.section').click(function () {
+                var id = $(this).data('companyid'),
+                    pid = $dip.val(),
+                    preUrl = window.location.href;
+
+                preUrl = preUrl.replace(preUrl.substring(preUrl.indexOf('-'), preUrl.indexOf('.html')), '-' + pid + '-' + id + '-' + shareDetailId + '-' + contractFlag);
+                window.location.href = preUrl;
+            });
+        });
+    </script>
+    <script>
+        //*******************************
+        // 百度分享标签点击事件
+        //*******************************
+        $('.bdsharebuttonbox a').on('click', function () {
+            bdShare();
+        });
+        $('#amore').on('mouseover', function () {
+            $('.bdshare_popup_box').unbind('click', bdShare);
+            $('.bdshare_popup_box').bind('click', bdShare);
+        });
+        function bdShare() {
+            $.get('/Json/shareRecord.ashx', { pid: '4484', cid: '288', uid: '1831896' }, function (res) {
+
+            });
+        }
+        $(".fixed-chou").hover(function () {
+            $(this).animate({ left: "0px" });
+        }, function () {
+            $(this).animate({ left: "-85px" });
+        })
+        $(window).scroll(function () {
+            var fixscroll = $(document).scrollTop();
+            if (fixscroll > 500) {;
+                $(".fixed-chou").show();
+            } else {
+                $(".fixed-chou").hide();
+            }
+        })
+
+        //口碑得分鼠标滑过效果
+        $(".detail-user-2016 .icon-block").hover(function () {
+            $(this).find(".floatshadow").show();
+        }, function () {
+            $(this).find(".floatshadow").hide();
+        })
+
+        //手机销量排行切换同品牌和同价位
+        $(".hchoose-type a").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+            var _index = $(this).index();
+
+            $('.itemss').eq(_index).show().siblings('.itemss').hide();
+        })
+
+        //商品图片展示区域的高度和中间的选择商品参数的高度一致
+        var oPropriceHeight = $(".pro-price").height() - 2;
+        $(".pro-img").height(oPropriceHeight);
+    </script>
+    <script type="text/javascript" src="__JS__/jquery.pagination.js.下载"></script>
+    <script src="__JS__/city-picker.data.js.下载"></script>
+    <script src="__JS__/city-picker.js.下载"></script>
+    <script src="__JS__/main.js.下载"></script>
+    <script src="__JS__/jquery.SuperSlide.2.1.1.js.下载"></script>
+    <script>
+    </script>
+
+
+</body>
+<script>
+    document.getElementById("number").addEventListener("input",function(event){
+        event.target.value = event.target.value.replace(/\-/g,"");
+    });
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>后台管理系统</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__CSS__/style.css">
+<!--[if lt IE 9]>
+<script src="__JS__/html5.js"></script>
+<![endif]-->
+<script src="__JS__/jquery.js"></script>
+<script src="__JS__/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+
+	(function($){
+		$(window).load(function(){
+			
+			$("a[rel='load-content']").click(function(e){
+				e.preventDefault();
+				var url=$(this).attr("href");
+				$.get(url,function(data){
+					$(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+					//scroll-to appended content 
+					$(".content").mCustomScrollbar("scrollTo","h2:last");
+				});
+			});
+			
+			$(".content").delegate("a[href='top']","click",function(e){
+				e.preventDefault();
+				$(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+			});
+			
+		});
+	})(jQuery);
+</script>
+</head>
+<body>
+
+{include file="../application/admin/view/header/headerinfo.html" /}
+
+{include file="../application/admin/view/aside/asides.html" /}
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      <div class="page_title">
+       <h2 class="fl">角色列表</h2>
+      </div>
+      <table class="table">
+       <tr>
+        <th>Id</th>
+        <th>用户名</th>
+        <th>角色</th>
+        <th>状态</th>
+        <th>操作</th>
+       </tr>
+       {if $info}
+       {foreach $info as $k=>$vo}
+       <tr>
+        <td class="center" >{$vo.id}</td>
+        <td class="center">{$vo.username}</td>
+        <td class ="center" >{foreach $arr[$k] as $key=>$role}{$role['name']}&nbsp;{/foreach} </td>
+        {if $vo.status ==1}
+        <td class ="center">启用</td>
+        {else}
+        <td class ="center">未启用</td>
+        {/if}
+        <td class="center">
+         <a href="roleaddinfo?id={$vo.id}" title="修改角色" class="link_icon">&#101;</a>
+         <a href="userdelete?id={$vo.id}" title="删除" class="link_icon">&#100;</a>
+        </td>
+        {/foreach}
+        {/if}
+       </tr>
+      </table>
+ </div>
+</section>
+</body>
+</html>
+<script type="text/javascript">
+  $(window).load(function(){
+    //要执行的方法体
+    var vid =$('#vid').val();
+    console.log(vid);
+    $.post('/admin/rbac/rolelist',{vid:$('#vid').val()},function(){
+
+    },'json');
+
+});
+</script>

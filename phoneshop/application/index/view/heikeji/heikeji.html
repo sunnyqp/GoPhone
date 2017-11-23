@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/heistyle.css">
+    <title>黑科技-GoPhone官网</title>
+</head>
+<body>
+    <link rel="stylesheet" href="__CSS__/basic(1).css">
+    <link rel="stylesheet" href="__CSS__/heistyle1.css">
+<div class="header">
+    <div class="topbar">
+        <div class="clear w1200">
+            <p class="welcome">欢迎来到GoPhone</p>
+            <div class="clear menu">
+                {if !empty($Think.session.username)}
+                <a href="../person/dingdan" class="item">我的订单</a>
+                <span class="divi">|</span>
+                {/if}
+                <a href="../index/lianxi">联系我们</a>
+            </div>
+            {if !empty($Think.session.username)}
+            <div class="clear login-status">
+                <a href="../person/personinfo" class="link">欢迎, {$Think.session.username}</a>
+                <span class="divi"> | </span>
+                <a href="../index/tuichu" class="link" id="">退出</a>
+            </div>
+            {else}
+            <div class="clear login-status">
+                <a href="../user/login" class="link">登陆</a>
+                <span class="divi"> | </span>
+                <a href="../user/Register" class="link" id="exitLogin">注册</a>
+            </div>
+            {/if}
+        </div>
+    </div>
+    <div class="clear w1200 headbar">
+        <a href="" class="logo">
+            <img alt="" src="__IMG__/logo1.jpg">
+        </a>
+        <a href="" class="slogan">
+            <img alt="" src="__IMG__/slogan1.png">
+        </a>
+        <div class="search-container">
+            <div class="clear search-bar" id="searchBar">
+                <form action="../sou/sou" method="post">
+                    <input type="text" class="input" name="so" id="searchInput" placeholder="请输入搜索内容">
+                    <input type="submit" class="btn" id="searchBtn" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="endorse">
+            <a href="javascript:;" class="J_online-service">
+                <img src="__IMG__/kefupic.gif" style="width: 109px;margin-top: -5px;">
+            </a>
+        </div>
+    </div>
+    <div class="clear w1200 nav-container">
+        <div class="nav" id="main-nav">
+            <h2 class="title">全部商品分类</h2>
+            <ul class="list" id="main-list">
+                {if !empty($big)}
+                {foreach $big as $v}
+                <li class="nav-first J_nav-first">
+                    <h2 class="title phone">{$v.name}</h2>
+                    <div class="clear list">
+                        {if (!empty($small))}
+                        {foreach $small as $v1}
+                        {if $v1.pid == $v.id}
+                        <a target="_blank" href="../sou/sou?name={$v1.name}" class="item">{$v1.name}</a>
+                        {/if}
+                        {/foreach}
+                        {/if}
+                    </div>
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <a href="../" class="item index on">首页</a>
+        <a target="_blank" href="../phoneshop/phoneshop" class="item">手机商城</a>
+        <a target="_blank" href="../heikeji/heikeji" class="item">黑科技</a>
+        <a target="_blank" href="../message/message" class="item">资讯评测</a>
+    </div>
+</div>
+<div class="clear aside" id="aside" STYLE="height:50PX;position:fixed;margin-top:700px;background:red;">
+    <div class="toolbar" id="toolbar">
+        <a href="javascript:void(0);" class="return-top" id="returnTop">TOP ↑</a>
+    </div>
+</div>
+<script type="text/javascript" src="__JS__/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="__JS__/jquery.cookies.2.2.0.min.js"></script>
+<script type="text/javascript" src="__JS__/header.js"></script>
+
+    <div class="header">
+        <div class="bg1"></div>
+        <div class="bg2"></div>
+    </div>
+    <div class="main">
+        <h2 class="bg3 main-title">
+            <div class="w1200">
+
+            </div>
+        </h2>
+        <div class="bg4">
+            <div class="w1200">
+                <div class="clear goods-list">
+                    {if !empty($jiqiren)}
+                    {foreach $jiqiren as $v}
+                    <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}" class="goods">
+                        <img alt="" src="__IMG__/{$v.picture}" class="image">
+                        <div class="detail">
+                            <p class="name">{$v.name}  +  {$v.color} </p>
+                            <p class="info"></p>
+                            <p class="price">￥{$v.money}</p>
+                            <p class="btn">立即购买</p>
+                        </div>
+                    </a>
+                    {/foreach}
+                    {/if}
+                </div>
+            </div>
+        </div>
+        <h2 class="bg5 main-title">
+            <div class="w1200">
+
+            </div>
+        </h2>
+        <div class="bg6">
+            <div class="w1200">
+                <div class="clear goods-list">
+                    {if !empty($wurenji)}
+                    {foreach $wurenji as $v}
+                    <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}" class="goods">
+                        <img alt="" src="__IMG__/{$v.picture}" class="image">
+                        <div class="detail">
+                            <p class="name">{$v.name}  +  {$v.color} </p>
+                            <p class="info"></p>
+                            <p class="price">￥{$v.money}</p>
+                            <p class="btn">立即购买</p>
+                        </div>
+                    </a>
+                    {/foreach}
+                    {/if}
+                </div>
+            </div>
+        </div>
+        <h2 class="bg7 main-title">
+            <div class="w1200">
+
+            </div>
+        </h2>
+        <div class="bg8">
+            <div class="w1200">
+                <div class="clear goods-list">
+                    {if !empty($yanjing)}
+                    {foreach $yanjing as $v}
+                    <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}" class="goods">
+                        <img alt="" src="__IMG__/{$v.picture}" class="image">
+                        <div class="detail">
+                            <p class="name">{$v.name}  +  {$v.color} </p>
+                            <p class="info"></p>
+                            <p class="price">￥{$v.money}</p>
+                            <p class="btn">立即购买</p>
+                        </div>
+                    </a>
+                    {/foreach}
+                    {/if}
+                </div>
+            </div>
+        </div>
+        <h2 class="bg9 main-title">
+            <div class="w1200">
+
+            </div>
+        </h2>
+        <div class="bg10">
+            <div class="w1200">
+                <ul class="clear goods-list">
+                    {if !empty($shouhuan)}
+                    {foreach $shouhuan as $v}
+                    <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}" class="goods">
+                        <img alt="" src="__IMG__/{$v.picture}" class="image">
+                        <div class="detail">
+                            <p class="name">{$v.name}  +  {$v.color} </p>
+                            <p class="info"></p>
+                            <p class="price">￥{$v.money}</p>
+                            <p class="btn">立即购买</p>
+                        </div>
+                    </a>
+                    {/foreach}
+                    {/if}
+                </ul>
+            </div>
+        </div>
+        <h2 class="bg11 main-title">
+            <div class="w1200">
+
+            </div>
+        </h2>
+        <div class="bg12">
+            <div class="w1200">
+                <ul class="clear goods-list">
+                    {if !empty($shoubiao)}
+                    {foreach $shoubiao as $v}
+                    <a target="_blank" href="../phoneinfo/phoneinfo?id={$v.gid}" class="goods">
+                        <img alt="" src="__IMG__/{$v.picture}" class="image">
+                        <div class="detail">
+                            <p class="name">{$v.name}  +  {$v.color} </p>
+                            <p class="info"></p>
+                            <p class="price">￥{$v.money}</p>
+                            <p class="btn">立即购买</p>
+                        </div>
+                    </a>
+                    {/foreach}
+                    {/if}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+<link href="__CSS__/basic(2).css" rel="stylesheet">
+<link href="__CSS__/footer.css" rel="stylesheet">
+<style type="text/css"> 
+.footer-top img{ cursor:pointer; }
+</style>
+
+<footer>
+    <div class="footer">
+        <div class="footer-warp">
+            <div class="footer-top clear">
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu01.jpg" width="256" height="97" class="fl">
+                </a>
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu02.jpg" width="214" height="97" class="fl">
+                </a>
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu03.jpg" width="205" height="97" class="fl">
+                </a>
+                <a href="" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu04.jpg" width="254" height="97" class="fl">
+                </a>
+                <a href="" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu05.jpg" width="237" height="97" class="fl">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <center>
+            <a href="">本站仅为学习开发使用   备案号：京dsadd001</a>
+        </center>
+    </div>
+</footer>
+
+
+<link href="__CSS__/footer(1).css" rel="stylesheet">
+
+
+
+
+
+
+    <script>
+        $('#heikeji').addClass('on').siblings().removeClass('on');
+    </script>
+
+
+
+</body></html>

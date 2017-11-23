@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>修改密码</title>
+    <script src="__JS__/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/accountmanage.css">
+    <link href="__CSS__/stylegai.css" rel="stylesheet">
+</head>
+<body>
+    <div class="head">
+        <div class="header">
+            <h1 class="fl logo">
+                <a target="_blank" href="../../">
+                    <img src="__IMG__/logo1.jpg" alt="GoPhone">
+                </a>
+            </h1>
+            <p class="mydi fl">
+                <i></i>我的GoPhone
+            </p>
+            <ul class="headernav fl">
+                <li class="fl">
+                    <a href="../../" class="headernavactive">首页</a>
+                </li>
+            </ul>
+            <div class="chart ">
+                <span class="chartxt fl"><a target="_blank" href="https://shop.dixintong.com/order/Mycart.aspx">购物车</a></span>
+                <span class="chartnum fl"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="con">
+        <div class="content">
+            <div class="content-left">
+                <a class="clhead" href="../person/personinfo">个人中心
+				<span class="mail">
+                    <i class="mailnum">0</i>
+                </span>
+                </a>
+
+                <div class="clmain">
+                    <h3 class="clmhead">订单中心</h3>
+                    <ul class="clmainul">
+                        <li><a href="../person/dingdan">我的订单</a></li>
+                        <li><a href="../phoneinfo/gouwuche">我的购物车</a></li>
+                    </ul>
+                </div>
+                <div class="clmain">
+                    <h3 class="clmhead">关注中心</h3>
+                    <ul class="clmainul">
+                        <li><a href="../guanzhu/guanzhu" >关注的商品</a></li>
+                        <li><a href="../guanzhu/liulanlishi">浏览历史</a></li>
+                    </ul>
+                </div>
+                <div class="clmain">
+                    <h3 class="clmhead">账户设置</h3>
+                    <ul class="clmainul">
+                        <li><a href="../person/personinfo">个人信息</a></li>
+                        <li><a href="../person/address" >收货地址</a></li>
+                        <li><a href="../person/gaimima" class="clmainactive">账号管理</a></li>
+                    </ul>
+                </div>
+                <div class="clmain">
+                    <h3 class="clmhead">特色</h3>
+                    <ul class="clmainul">
+                        <li><a href="../person/huoche">列车查询</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="manage-content-right">
+                <h2 class="manage-content-tit">我的积分</h2>
+
+                <!-- 修改密码 -->
+                <div class="changepassbox">
+
+                    <div class="itembox clear">
+                        <div class="item clear">
+                            <span class="text">新密码</span>
+                            <input type="password" class="newpass" id="newpass">
+                        </div>
+                        <div class="status status1"></div>
+                        <p class="tip tip1">新密码长度6-18位，不能有空格或其他特殊字符哦</p>
+                    </div>
+                    <div class="itembox clear">
+                        <div class="item clear">
+                            <span class="text">重复新密码</span>
+                            <input type="password" class="repeatpass" id="repeatpass">
+                        </div>
+                        <div class="status status2"></div>
+                        <p class="tip tip2">新密码长度6-18位，不能有空格或其他特殊字符哦</p>
+                    </div>
+                    <div class="itembox clear">
+                        <div class="item clear">
+                            <span class="text">旧密码</span>
+                            <input type="password" class="oldpass" id="oldpass">
+                        </div>
+                        <div class="status status3"></div>
+                        <p class="tip tip3"></p>
+                    </div>
+
+                </div>
+                <a href="javascript:void(0)" class="Confirmchange">确认修改</a>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="wrap">
+        <div class="wrapper"></div>
+        <div class="wrapcontent">
+            <p class="ChangeSucTip">密码修改成功</p>
+            <p class="LoginTip">需要您重新登录</p>
+            <a href="../index/gaimihou" class="Loginlink">立即重新登录</a>
+            <p class="AutoTip">自动跳转到登录页面 <span>3S</span></p>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            //验证密码函数
+            $("#newpass").on("input propertychange", function () {
+                checkpass();
+                JudgeCorrectNum();
+            });
+            function checkpass() {
+                var pass1 = $('#newpass').val();
+                var reg = /^[0-9a-zA-Z]{6,10}$/;
+                if (pass1 === "") {
+
+                    $(".tip1").text("*新密码长度6-18位，不能有空格或其他特殊字符哦").css({ color: "#ea4234" });
+                    $(".status1").addClass("error").removeClass("correct");
+                    return false;
+                } else {
+                    if (reg.test(pass1)) {
+                        $(".tip1").text("新密码长度6-18位，不能有空格或其他特殊字符哦").css({ color: "#2b2b2b" });
+                        $(".status1").removeClass("error").addClass("correct");
+                        return true;
+                    } else if (!reg.test(pass1)) {
+                        $(".status1").removeClass("correct").addClass("error");
+                        $(".tip1").text("*新密码长度6-18位，不能有空格或其他特殊字符哦").css({ color: "#ea4234" });
+                        return false;
+                    }
+                }
+            }
+
+
+            //验证确认密码
+            $("#repeatpass").on("input propertychange", function () {
+                confirmpass();
+                JudgeCorrectNum();
+            });
+            function confirmpass() {
+                var pass = $("#newpass").val();
+                var confirmpass = $("#repeatpass").val();
+                if (confirmpass == "") {
+                    $(".tip2").text("* 两次的密码不一致").css({ color: "#ea4234" });
+                    $(".status2").addClass("error").removeClass("correct");
+                    return false;
+                } else {
+                    if (confirmpass !== pass) {
+                        $(".tip2").text("* 两次的密码不一致").css({ color: "#ea4234" });
+                        $(".status2").addClass("error").removeClass("correct");
+                        return false;
+                    } else {
+                        $(".status2").removeClass("error").addClass("correct");
+                        $(".tip2").text("新密码长度6-18位，不能有空格或其他特殊字符哦").css({ color: "#2b2b2b" });
+                        return true;
+                    }
+                }
+            }
+
+
+
+            //验证旧密码
+            $("#oldpass").on("input propertychange", function () {
+                confirmoldpass();
+                JudgeCorrectNum();
+            });
+            function confirmoldpass() {
+                var oldpassval = $("#oldpass").val();
+                var old = "123456";
+
+                if (oldpassval == "") {
+                    $(".tip3").text("* 旧密码输入错误").css({ color: "#ea4234" });
+                    $(".status3").addClass("error").removeClass("correct");
+                    return false;
+                } else {
+
+                    $(".status3").removeClass("error").addClass("correct");
+                    $(".tip3").text("").css({ color: "#ea4234" });
+                    return true;
+
+                }
+            }
+
+            //判断底部按钮背景颜色
+            function JudgeCorrectNum() {
+                var $correct = $(".correct"), $item = $(".itembox"), btn = $(".Confirmchange");
+                if ($correct.length === $item.length) {
+                    btn.addClass("on");
+                } else {
+                    btn.removeClass("on");
+                }
+            }
+
+            //读秒
+            var $span = $(".AutoTip span");
+
+
+            function second(dom, s) {
+                //var s=30;
+                var time = setInterval(function () {
+                    s--;
+                    dom.text(s + "S");
+                    if (s == 0) {
+                        dom.text(s + "S");
+                        window.clearInterval(time);
+                        window.open("../index/gaimihou", "_self");
+                    }
+                }, 1000)
+            }
+
+            //点击确认修改密码按钮
+            $(".Confirmchange").click(function () {
+                if (checkpass() && confirmpass() && confirmoldpass()) {
+
+                    var oldpassval = $("#oldpass").val();
+                    var pass1 = $('#newpass').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "../person/gaimi",
+                        data: { "op": "setpwd", "oldpwd": oldpassval, "newpwd": pass1 },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data == "1") {
+                                $(".wrap").show();
+                                second($span, 3);
+                            } else {
+                                alert('修改失败');
+                                location.reload();
+                            }
+                        }
+                    });
+
+
+                }
+            })
+        })
+    </script>
+
+
+</body>
+</html>

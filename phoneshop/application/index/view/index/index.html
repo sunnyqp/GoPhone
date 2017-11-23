@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{$sitename}-{$webname}</title>
+    <meta name="keywords" content="GoPhone官网,GoPhone手机网上商城,GoPhone官方旗舰店,手机网购,手机商城">
+    <link rel="stylesheet" href="__CSS__/basic.css">
+    <link rel="stylesheet" href="__CSS__/style.css">
+    <script src="__JS__/hm.js.下载"></script>
+    <script charset="utf-8" src="__JS__/v.js.下载"></script>
+    <script src="__JS__/hm.js(1).下载"></script>
+    <script src="__JS__/hm.js(2).下载"></script>
+    <script type="text/javascript" src="__JS__/jquery-1.7.2.js.下载"></script>
+    <script src="__JS__/jquery.cookies.2.2.0.min.js.下载"></script>
+</head>
+<body dh="1" rlt="1">
+<link rel="stylesheet" href="__CSS__/basic.css">
+<link rel="stylesheet" href="__CSS__/style(1).css">
+
+<div class="header">
+    <div class="topbar">
+        <div class="clear w1200">
+            <p class="welcome">欢迎来到GoPhone</p>
+            <div class="clear menu">
+                {if !empty($Think.session.username)}
+                <a href="./index/person/dingdan" class="item">我的订单</a>
+                <span class="divi">|</span>
+                {/if}
+                <a href="./index/index/lianxi" class="">联系我们</a>
+            </div>
+            {if !empty($Think.session.username)}
+            <div class="clear login-status">
+                <a href="../index/person/personinfo" class="link">欢迎, {$Think.session.username}</a>
+                <span class="divi"> | </span>
+                <a href="../index/index/tuichu" class="link" id="">退出</a>
+            </div>
+            {else}
+            <div class="clear login-status">
+                <a href="../index/user/login" class="link">登陆</a>
+                <span class="divi"> | </span>
+                <a href="" class="link" id="exitLogin">注册</a>
+            </div>
+            {/if}
+        </div>
+    </div>
+    <div class="clear w1200 headbar">
+        <a href="" class="logo">
+            <img alt="" src="__IMG__/logo1.jpg">
+        </a>
+        <a href="" class="slogan">
+            <img alt="" src="__IMG__/slogan1.png">
+        </a>
+        <div class="search-container">
+            <div class="clear search-bar" id="searchBar">
+                <form action="../index/sou/sou" method="post">
+                    <input type="text" class="input" name="so" id="searchInput" placeholder="请输入搜索内容">
+                    <input type="submit" class="btn" id="searchBtn" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="endorse">
+            <a href="javascript:;" class="J_online-service">
+                <img src="__IMG__/kefupic.gif" style="width: 109px;height:60px;margin-top: -5px;">
+            </a>
+        </div>
+    </div>
+    <div class="clear w1200 nav-container">
+        <div class="nav">
+            <h2 class="title">全部商品分类</h2>
+            <ul class="list">
+                {if !empty($big)}
+                {foreach $big as $v}
+                <li class="nav-first J_nav-first">
+                    <h2 class="title phone">{$v.name}</h2>
+                    <div class="clear list">
+                        {if (!empty($small))}
+                        {foreach $small as $v1}
+                        {if $v1.pid == $v.id}
+                        <a target="_blank" href="../index/sou/sou?name={$v1.name}" class="item">{$v1.name}</a>
+                        {/if}
+                        {/foreach}
+                        {/if}
+                    </div>
+                </li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <a href="../" class="item index on">首页</a>
+        <a target="_blank" href="../index/phoneshop/phoneshop" class="item">手机商城</a>
+        <a target="_blank" href="../index/heikeji/heikeji" class="item">黑科技</a>
+        <a target="_blank" href="../index/message/message" class="item">资讯评测</a>
+    </div>
+</div>
+<div class="clear aside" id="aside" STYLE="height:50PX;position:fixed;margin-top:700px;">
+    <div class="toolbar" id="toolbar">
+        <a href="javascript:void(0);" class="return-top" id="returnTop">TOP ↑</a>
+    </div>
+</div>
+<script type="text/javascript" src="__JS__/jquery-1.7.2.js.下载"></script>
+<script type="text/javascript" src="__JS__/jquery.cookies.2.2.0.min.js.下载"></script>
+<script type="text/javascript" src="__JS__/header.js.下载"></script>
+
+    <div class="main" style="position:relative;">
+        <div class="banner-container">
+            <div class="banner-slide" id="bannerSlide">
+                <div class="hd J_hd">
+                    <ul class="clear bar J_bar" style="bottom: 0px;">
+                        {if !empty($lb)}
+                            {foreach $lb as $v}
+                                <li class="item J_item" style="width: 112.4px;">{$v->toArray()['con']}</li>
+                            {/foreach}
+                        {/if}
+                    </ul>
+                    <a href="javascript:void(0);" class="btn prev J_btn" style="display: inline;"></a>
+                    <a href="javascript:void(0);" class="btn next J_btn" style="display: inline;"></a>
+                </div>
+                
+                <div class="bd">
+                    {if !empty($lb)}
+                    {foreach $lb as $v}
+                            <a href="http://www.gophone.com/index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" class="item" style="background: rgb(0, 0, 0); display: none;">
+                                <img alt="" src="__IMG__/{$v->toArray()['url']}">
+                            </a>
+                        {/foreach}
+                    {/if}
+                </div>
+                
+            </div>
+            <div class="life">
+                <div class="user">
+                    <div class="user-info">
+                        <!--广告-->
+
+                        <div class="clear box">
+                            <a class="icon">
+                                <img alt="" src="{$photo}">
+                            </a>
+                            <div class="detail">
+                                {if !empty($Think.session.username)}
+                                    <a href="./index/person/personinfo" class="name">欢迎，{$Think.session.username}</a>
+                                    <a href="../index/person/personinfo" class="name">——个人中心——</a>
+                                {else}
+                                    <a href="./index/user/login" class="name">★★★★ 登陆 ★★★★</a>
+                                    <a href="./index/user/Register" class="name">★★★★ 注册 ★★★★</a>
+                                {/if}
+                                <font style="color:#ffe512;font-family: 新蒂小丸子;font-size:19px;">Welcome to here！</font>
+                            </div>
+                        </div>
+
+                    </div>
+                    <ul class="clear feature">
+                        <li class="item">
+                            <img alt="" src="__IMG__/tag1.png" class="image">
+                            <p class="name">正品保证</p>
+                        </li>
+                        <li class="item">
+                            <img alt="" src="__IMG__/tag2.png" class="image">
+                            <p class="name">全国联保</p>
+                        </li>
+                        <li class="item">
+                            <img alt="" src="__IMG__/tag3.png" class="image">
+                            <p class="name">货票同行</p>
+                        </li>
+                    </ul>
+                </div>
+				<iframe width="240" scrolling="no" height="70" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=2&bgc=%23FFFFFF&icon=1&py=haidian&num=1&site=15"></iframe>
+				<div style="background-color:black;height:240px;font-size:14px;overflow: hidden;margin-top:-70px;">
+                    <font color="green"><b>轻松一刻</b></font><br/>
+                    {if !empty($xiaohua)}
+                        {foreach $xiaohua as $v}
+                        <font color="white">{$v.content}</font>
+                        {/foreach}
+                    {/if}
+				</div>
+            </div>
+        </div>
+        <!--精彩活动-->
+        <div class="Twoaddiv clear">
+                  <a href="http://shop.dixintong.com/products-4897-288.html" target="_blank">
+			            <img src="__IMG__/170919104635764336.jpg" alt="">
+                  </a>             
+                  <a href="http://shop.dixintong.com/products-4484-288.html" target="_blank">
+			            <img src="__IMG__/170919160220094537.jpg" alt="">
+                  </a>
+	    </div>
+        <h2 class="section-tit1">
+			精彩活动
+        </h2>
+        
+        <div class="clear w1200 activity">
+            <a target="_blank" href="http://shop.dixintong.com/products-4992-288-0-0.html" class="link">
+                <img src="__IMG__/170925105226155589.jpg" style="width: 400px; height: 300px;">
+            </a>
+            <div class="clear box">
+                <a target="_blank" href="http://shop.dixintong.com/products-4180-288.html" class="link sm">
+                    <img alt="" src="__IMG__/170223173255094340.jpg">
+                </a>
+                <a target="_blank" href="http://www.dixintong.com/mengqi/pc/" class="link sm">
+                    <img alt="" src="__IMG__/170606092921700216.jpg">
+                </a>
+                <a target="_blank" href="http://shop.dixintong.com/products-4614-288-0-0.html" class="link sm">
+                    <img alt="" src="__IMG__/170706101622142909.jpg">
+                </a>
+                <a target="_blank" href="http://shop.dixintong.com/products-4899-288.html" class="link sm">
+                    <img alt="" src="__IMG__/170919105449192475.jpg">
+                </a>
+            </div>
+            <a target="_blank" href="http://shop.dixintong.com/products-4817-288.html" class="link md">
+                <img alt="" src="__IMG__/170919111333720920.jpg">
+            </a>
+        </div>
+        
+
+        <!-- 热卖ing -->
+        <div class="bao">
+            <div class="baobox">
+                <h3 class="section-tit2">热卖ing</h3>
+                <ul class="bao-goodslist clear">
+                    {if !empty($hotinfo)}
+                    {foreach $hotinfo as $v}
+                    <li>
+                        <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                            <p class="goods-label goods-label1">Hot</p>
+                            <p class="goods-tit"> {$v->toArray()['name']}  {$v->toArray()['ram']}GB 存储</p>
+                            <div class="imgbox">
+                                <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                            </div>
+                            <p class="goods-price">
+                                市场价
+						        <span class="mallprice">{$v->toArray()['money']}</span>
+                                <span class="lownum">直降<i>{$v->toArray()['dazhe']}</i>元</span>
+                            </p>
+                            <p class="goods-handprice">剁手价￥{$v->toArray()['money']-$v->toArray()['dazhe']}</p>
+                        </a>
+                    </li>
+                    {/foreach}
+                    {/if}
+                </ul>
+            </div>
+        </div>
+
+
+
+        <script>
+            var setin = null;
+            setin = setInterval(dsjpp, 1000);
+
+            function dsjpp() {
+                $('.limit .limit-time').each(function () {
+                    var year = $(this).data("year");
+                    var month = $(this).data("month");
+                    var day = $(this).data("day");
+                    var h1 = $(this).data("h1");
+                    var m1 = $(this).data("m1");
+                    var s1 = $(this).data("s1");
+                    var hid = $(this).data("hid");
+                    if (parseInt(year) > 0) {
+                        ShowCountDown(year, month, day, h1, m1, s1, hid);
+                    }
+                });
+            }
+        </script>
+
+        <!--手机专区-->
+        <div class="hxyphone">
+            <!--手机专区的导航栏-->
+            <div class="phonenavbox clear">
+                <h3 class="phone-tit">热门机型</h3>
+
+                <ul class="phonenavlist clear">
+                    <li>
+                        <a href="javascript:void(0)" class="active">精品推荐</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">最新机型</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">黑科技</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">平板</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!--手机专区商品展示区-->
+            <div class="phone-showbox clear">
+                <div class="showbox-left">
+                    
+                    <a target="_blank" href="http://www.gophone.com/index/phoneinfo/phoneinfo?id=1">
+                        <img src="__IMG__/160923161700700515.jpg" alt="">
+                    </a>
+                    
+                </div>
+                <div class="phone-showlistbox">
+                    <ul class="phonelist clear">
+                        <!--手机专区推荐商品第一个列表的轮播li-->
+                        {if !empty($allhotinfo)}
+                        {foreach $allhotinfo as $v}
+                            <li>
+                                <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                                    <img class="goods-tag" src="__IMG__/goods-tag.png" alt="">
+                                    <div class="imgbox">
+                                        <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                                    </div>
+                                    <p class="goods-lownum" style="visibility: hidden;">
+                                        直降{$v->toArray()['dazhe']}
+                                    </p>
+                                    <p class="goods-tit">
+                                        {$v->toArray()['name']} {$v->toArray()['ram']}GB 存储 {$v->toArray()['color']}
+                                    </p>
+                                    <p class="goods-desc">
+                                        直降 {$v->toArray()['dazhe']} 元
+                                    </p>
+                                    <p class="goods-price">
+                                        促销价￥<span>{$v->toArray()['money'] - $v->toArray()['dazhe']}</span>
+                                    </p>
+                                </a>
+                            </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+
+                    <ul class="phonelist clear" style="display: none;">
+                        {if !empty($newinfo)}
+                        {foreach $newinfo as $v}
+                        <li>
+                            <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                                <div class="imgbox">
+                                    <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                                </div>
+                                <p class="goods-lownum" style="visibility: hidden;">
+                                    直降0.00
+                                </p>
+                                <p class="goods-tit">
+                                    {$v->toArray()['name']} {$v->toArray()['ram']}GB 存储 {$v->toArray()['color']}
+                                </p>
+                                <p class="goods-desc">
+                                    直降{$v->toArray()['dazhe']}
+                                </p>
+                                <p class="goods-price">
+                                    促销价￥<span>{$v->toArray()['money'] - $v->toArray()['dazhe']}</span>
+                                </p>
+                            </a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                    <ul class="phonelist clear" style="display: none;">
+                        {if !empty($hei6info)}
+                        {foreach $hei6info as $v}
+                        <li>
+                            <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                                <div class="imgbox">
+                                    <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                                </div>
+                                <p class="goods-lownum" style="">
+                                    直降{$v->toArray()['dazhe']}
+                                </p>
+                                <p class="goods-tit">
+                                    {$v->toArray()['name']} {$v->toArray()['ram']} {$v->toArray()['color']}
+                                </p>
+                                <p class="goods-price">
+                                    仅售 ￥<span>{$v->toArray()['money']}</span>
+                                </p>
+                            </a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                    <ul class="phonelist clear" style="display: none;">
+                        {if !empty($pinginfo)}
+                        {foreach $pinginfo as $v}
+                        <li>
+                            <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                                <div class="imgbox">
+                                    <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                                </div>
+                                <p class="goods-lownum" style="visibility: hidden;">
+                                    {$v->toArray()['dazhe']}
+                                </p>
+                                <p class="goods-tit">
+                                    {$v->toArray()['name']} {$v->toArray()['ram']}GB 存储 {$v->toArray()['color']}
+                                </p>
+                                <p class="goods-desc">
+                                    直降{$v->toArray()['dazhe']}
+                                </p>
+                                <p class="goods-price">
+                                    仅售￥<span>{$v->toArray()['money']}</span>
+                                </p>
+                            </a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                </div>
+            </div>
+        </div>
+		
+        <!--智能专区-->
+        <div class="talent">
+            <!--智能专区的导航栏-->
+            <div class="talentnavbox clear">
+                <h3 class="talent-tit">黑科技</h3>
+            </div>
+
+            <!--智能专区商品展示区-->
+            <div class="talent-showbox clear">
+                <div class="showbox-left">
+                    <a href="http://www.gophone.com/index/phoneinfo/phoneinfo?id=14" target="_blank">
+                        <img src="__IMG__/160923161945920415.jpg" alt="">
+                    </a>
+                    
+                </div>
+                <div class="talent-showlistbox">
+                    <ul class="talentlist clear">
+                        <!--智能专区推荐商品第一个列表的轮播li-->
+                        <li class="lunboli">
+                            <div class="section-lunbo">
+                                <a class="prev" href="javascript:void(0)"></a>
+                                <a class="next" href="javascript:void(0)"></a>
+                                <ul class="hd">
+                                    
+                                    <li class="on"></li>
+                                    
+                                    <li class=""></li>
+                                    
+                                    <li class=""></li>
+                                    
+                                </ul>
+
+                                <div class="tempWrap" style="overflow:hidden; position:relative; width:477px"><ul class="bd" style="width: 2385px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -1875.75px;"><li class="clone" style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-1956-288.html">
+                                            <img src="__IMG__/160923163122836301.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-3352-288.html">
+                                            <img src="__IMG__/160923162904370430.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-3070-288.html">
+                                            <img src="__IMG__/160923163014102644.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-1956-288.html">
+                                            <img src="__IMG__/160923163122836301.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="clone" style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-3352-288.html">
+                                            <img src="__IMG__/160923162904370430.jpg" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                        </li>
+                        {if !empty($hei6info)}
+                        {foreach $hei6info as $v}
+                        <li>
+                            <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                                <img style="display:none" class="goods-tag" src="__IMG__/saved_resource" alt="">
+                                <div class="imgbox">
+                                    <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                                </div>
+                                <p class="goods-lownum" style="visibility: hidden;">
+                                    直降{$v->toArray()['dazhe']}
+                                </p>
+                                <p class="goods-tit">
+                                    {$v->toArray()['name']} {$v->toArray()['color']}
+                                </p>
+                                <p class="goods-desc">
+
+                                </p>
+                                <p class="goods-price">
+                                    仅售￥<span>{$v->toArray()['money']}</span>
+                                </p>
+                            </a>
+                        </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--平板专区-->
+        <div class="pad">
+            <!--平板专区的导航栏-->
+            <div class="padnavbox clear">
+                <h3 class="pad-tit">平板专区</h3>
+            </div>
+
+            <!--平板专区商品展示区-->
+            <div class="pad-showbox clear">
+                <div class="showbox-left">
+                    <a target="_blank" href="">
+                        <img src="__IMG__/160923162100519480.jpg" alt="">
+                    </a>
+                    
+                </div>
+                <div class="pad-showlistbox">
+                    <ul class="padlist clear">
+                        <!--平板专区推荐商品第一个列表的轮播li-->
+                        <li class="lunboli">
+                            <div class="section-lunbo">
+                                <a class="prev" href="javascript:void(0)"></a>
+                                <a class="next" href="javascript:void(0)"></a>
+                                <ul class="hd">
+                                    
+                                    <li class="on"></li>
+                                    
+                                    <li class=""></li>
+                                    
+                                    <li class=""></li>
+                                    
+                                </ul>
+
+                                <div class="tempWrap" style="overflow:hidden; position:relative; width:477px"><ul class="bd" style="width: 2385px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -1871.14px;"><li class="clone" style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-1250-288-0-0.html">
+                                            <img src="__IMG__/160923163428710476.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-2760-288.html">
+                                            <img src="__IMG__/160923163232271189.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-1845-288.html">
+                                            <img src="__IMG__/160923163318931760.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                    <li style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-1250-288-0-0.html">
+                                            <img src="__IMG__/160923163428710476.jpg" alt="">
+                                        </a>
+                                    </li>
+                                    
+                                <li class="clone" style="float: left; width: 477px;">
+                                        <a target="_blank" href="http://shop.dixintong.com/products-2760-288.html">
+                                            <img src="__IMG__/160923163232271189.jpg" alt="">
+                                        </a>
+                                    </li></ul></div>
+                            </div>
+                        </li>
+
+                        {if !empty($ping6info)}
+                            {foreach $ping6info as $v}
+                            <li>
+                                <a href="../index/phoneinfo/phoneinfo?id={$v->toArray()['gid']}" target="_blank">
+                                    <img class="goods-tag" style="display:none" src="__IMG__/saved_resource" alt="">
+                                    <div class="imgbox">
+                                        <img src="__IMG__/{$v->toArray()['picture']}" alt="">
+                                    </div>
+                                    <p class="goods-lownum" style="visibility: hidden;">
+                                        直降{$v->toArray()['dazhe']}
+                                    </p>
+                                    <p class="goods-tit">
+                                        {$v->toArray()['name']}  {$v->toArray()['ram']}G {$v->toArray()['color']}
+                                    </p>
+                                    <p class="goods-desc">
+
+                                    </p>
+                                    <p class="goods-price">
+                                        仅售 ￥<span>{$v->toArray()['money']}</span>
+                                    </p>
+                                </a>
+                            </li>
+                        {/foreach}
+                        {/if}
+                    </ul>
+                </div>
+            </div>
+        </div> 
+        <!-- 资讯 -->
+        <div class="InfoBox">
+	        <div class="Info1200">
+		        <div class="InfoTitleBox clear">
+			        <p class="Info">资讯测评</p>
+			        <a href="../index/message/message" target="_blank" class="morelink">更多</a>
+		        </div>
+		        <ul class="InfoList clear">
+                    {if !empty($zixun)}
+                        {foreach $zixun as $v}
+			        <li>
+				        <a target="_blank" href="../index/message/zixun?id={$v.id}">
+					        <img src="__IMG__/{$v.photo}" alt="">
+					        <span class="InfoTag">资讯</span>
+					        <p class="InfoDesc">{$v.title}</p>
+				        </a>
+				        <p class="InfoDetailP clear">
+					        <span class="time">{$v.create_time |date="Y-m-d h:i:s",###}</span>
+					        <span class="looknum">点击量：{$v.click}</span>
+				        </p>
+			        </li>
+			            {/foreach}
+                    {/if}
+		        </ul>
+	        </div>
+	
+        </div>
+    </div>
+    <div class="mask" id="mask" style="display: none;"></div>
+    <div class="ad-model" id="adModel" style="display: none;">
+        <a href="http://www.dixintong.com/#" class="link J_link on">
+            <img alt="" src="__IMG__/ad5.png">
+        </a>
+        <a href="javascript:void(0);" class="close J_close"></a>
+    </div>
+    
+
+<link href="__CSS__/basic(1).css" rel="stylesheet">
+<link href="__CSS__/not-found404.css" rel="stylesheet">
+
+<style type="text/css">
+
+	.footer-warp  div a,.footer-warp div a img { cursor:pointer; }
+</style>
+
+<footer>
+    <div class="footer">
+		<div class="footer-warp">
+			<div class="footer-top clear">
+                <a href="http://www.dixintong.com/issue-1-3-10.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu01.jpg" width="256" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/issue-3-1-16.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu02.jpg" width="214" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/issue-4-1-19.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu03.jpg" width="205" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/html/xin/index.html" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu04.jpg" width="254" height="97" class="fl">
+                </a>
+                <a href="http://www.dixintong.com/mdall.html" style="cursor:default" target="_blank" class="fl">
+                    <img src="__IMG__/fuwu05.jpg" width="237" height="97" class="fl">
+                </a>
+            </div>
+		</div>
+	</div>
+  <div>
+      <center>
+          <a href="http://www.miitbeian.gov.cn/" target="_blank">本站仅为学习开发使用   备案号：{$beian}</a>
+      </center>
+  </div>
+</footer>
+
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js.下载"></script>
+<script type="text/javascript" src="__JS__/index.js.下载"></script>
+
+<script src="__JS__/tongji_baidu.js.下载"></script>
+<script>
+    var indextmp = 1;
+    $(".likenum").hover(function () {
+        $(this).addClass("on");
+    }, function () {
+        $(this).removeClass("on");
+    })
+    $(".likenum").on("click", function () {
+        if (indextmp == 1) {
+            var x = parseInt($(this).text());
+            x += 1;
+            $(this).text(x);
+            indextmp = 2;
+        }
+    });
+</script>
+<script>
+    var oH = $(window).height();
+    $(".outwrap").height(oH);
+    $(".outwrap .closebtn").click(function () {
+        $(".outwrap").hide();
+        if (!$.cookies) $.cookies = jaaulde.utils.cookies;
+        $.cookies.set("guanbi", '0', { hoursToLive: 24 });
+    })
+
+    if (!$.cookies) $.cookies = jaaulde.utils.cookies;
+    var tmpStr = $.cookies.get("guanbi");
+    if (tmpStr == '0') {
+
+    } else {
+        $(".outwrap").show();
+    }
+
+</script>
+<script>
+    //手机专区商品列表轮播图
+    $(".phonelist .section-lunbo").slide({ autoPlay: true, effect: "leftLoop", mouseOverStop: true, pnLoop: true });
+    $(".phonelist .lunboli").hover(function () {
+        $(this).find(".prev").show().end().find(".next").show();
+    }, function () {
+        $(this).find(".prev").hide().end().find(".next").hide();
+    })
+    //配件专区商品列表轮播图
+    $(".pjlist .section-lunbo").slide({ autoPlay: true, effect: "leftLoop", mouseOverStop: true, pnLoop: true });
+    $(".pjlist .lunboli").hover(function () {
+        $(this).find(".prev").show().end().find(".next").show();
+    }, function () {
+        $(this).find(".prev").hide().end().find(".next").hide();
+    })
+    //智能专区商品列表轮播图
+    $(".talentlist .section-lunbo").slide({ autoPlay: true, effect: "leftLoop", mouseOverStop: true, pnLoop: true });
+    $(".talentlist .lunboli").hover(function () {
+        $(this).find(".prev").show().end().find(".next").show();
+    }, function () {
+        $(this).find(".prev").hide().end().find(".next").hide();
+    })
+    //平板专区商品列表轮播图
+    $(".padlist .section-lunbo").slide({ autoPlay: true, effect: "leftLoop", mouseOverStop: true, pnLoop: true });
+    $(".padlist .lunboli").hover(function () {
+        $(this).find(".prev").show().end().find(".next").show();
+    }, function () {
+        $(this).find(".prev").hide().end().find(".next").hide();
+    })
+
+    //手机专区列表切换
+    $(".phonenavlist li").hover(function () {
+        var _index = $(this).index();
+        $(".phonenavlist li a").removeClass("active");
+        $(this).find("a").addClass("active");
+        $(".phone-showlistbox .phonelist").eq(_index).css({ display: "block" }).siblings().css({ display: "none" });
+    })
+
+    //配件专区列表切换
+    $(".pjnavlist li").hover(function () {
+        var _index = $(this).index();
+        $(".pjnavlist li a").removeClass("active");
+        $(this).find("a").addClass("active");
+        $(".pj-showlistbox .pjlist").eq(_index).css({ display: "block" }).siblings().css({ display: "none" });
+    })
+</script>
+<script>
+    var oW = $(window).width();
+    var w = Math.floor((oW - 1200) / 2);
+  
+    $(".yearlink").css("width", w);
+</script>
+</body>
+</html>

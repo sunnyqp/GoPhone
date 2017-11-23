@@ -1,0 +1,55 @@
+ <table class="table">
+       <tr>
+        <th>缩略图</th>
+        <th>产品名称</th>
+        <th>品牌</th>
+        <th>单价</th>
+        <th>颜色</th>
+        <th>新品</th>
+        <th>热销</th>
+        <th>库存</th>
+        <th>添加时间</th>
+        <th>操作</th>
+       </tr>
+       {if !empty($list)}
+       {foreach $list as $vo}
+       <tr>
+        <td class="center"><img src="upload/goods01.jpg" width="50" height="50"/></td>
+        <td>{$vo.name}</td>
+        {switch name="$vo.pid"}
+        {case value="1"} <td class="center">苹果</td>{/case}
+        {case value="2"} <td class="center">华为</td>{/case}
+        {case value="3"} <td class="center">小米</td>{/case}
+        {case value="4"} <td class="center">oppo</td>{/case}
+        {case value="5"} <td class="center">魅族</td>{/case}
+        {case value="6"} <td class="center">vivo</td>{/case}
+        {case value="7"} <td class="center">三星</td>{/case}
+        {case value="8"} <td class="center">黑科技</td>{/case}
+        {case value="9"} <td class="center">平板</td>{/case}
+        {default /}default
+        {/switch}
+         
+        <td class="center">
+    			<strong class="rmb_icon">{$vo.money}</strong>
+      		</td>
+          <td class="center">{$vo.color}</td>
+          <td class="center"><a title="否" class="link_icon">&#88;</a>
+  		  </td>
+        {if $vo.ishot ==1}
+        <td class="center"><a title="是" class="link_icon">&#89;</td>
+        {else}
+        <td class="center"><a title="否" class="link_icon">&#88;</a>
+        </td>
+        {/if}
+        <td class="center">{$vo.stock}</td>
+        <td class="center">{$vo.addtime|date ="Y-m-d H:i:s",###}</td>
+        <td class="center">
+         <a href="http://www.deathghost.cn" title="预览" class="link_icon" target="_blank">&#118;</a>
+         <a href="product_detail.html" title="编辑" class="link_icon">&#101;</a>
+         <a href="#" title="删除" class="link_icon">&#100;</a>
+        </td>
+       </tr>
+       {/foreach}
+       {/if}
+ </table>
+ 
